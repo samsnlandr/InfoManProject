@@ -12,7 +12,7 @@
 
         /* BG */
         .background-overlay {
-            position: absolute;
+            position: fixed; /* Changed to fixed so it stays in place while content scrolls */
             top: 0;
             left: 0;
             width: 100%;
@@ -20,7 +20,7 @@
             background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('assets/bpi-2017-interaksyon.jpg');
             background-size: cover;
             background-position: center;
-            filter: blur(4); 
+            filter: blur(4px); /* Corrected filter value to a valid CSS unit */
             z-index: -1; 
         }
 
@@ -52,17 +52,39 @@
        
         .form-container {
             background-color: #ffffff;
-            border-radius: 25px; 
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15); 
-            padding: 40px 50px; 
-            width: 90%; 
-            max-width: 850px; 
+            border-radius: 25px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+            padding: 30px 40px; 
+            width: 90%;
+            max-width: 850px;
             box-sizing: border-box;
             position: relative;
-            z-index: 1; 
-            margin: 20px; 
-            overflow: hidden; 
-        }
+            z-index: 1;
+            margin: 20px auto; 
+            max-height: calc(100vh - 40px); 
+            overflow-y: auto; 
+            overflow-x: hidden; 
+}
+
+        /* SCROLLBAR */
+        .form-container::-webkit-scrollbar {
+             width: 8px;
+}
+
+        .form-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+}
+
+        .form-container::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+}
+
+        .form-container::-webkit-scrollbar-thumb:hover {
+            background: #555;
+}
+
 
       
         .form-header {
