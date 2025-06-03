@@ -16,37 +16,30 @@ from config import dbconnect
 
 database = dbconnect()
 
-def insertprimaryowner(Card_Name, Card_Birthdate, Card_Place_of_Birth, Card_Sex, Card_Display_Name,
-                       Card_Mother_Maiden_Name, Card_Educational_Attainment, Card_Civil_status, Card_No_of_Dependents,
-                       Card_TIN, Card_SSS_GSIS,Card_Car_Ownership, Card_Citizenship, Card_Mobile_Number,
-                       Card_Home_Phone_Number, Card_Address, Card_Zip_code, Card_Email, Card_Preferred_Card_Delivery,
-                       Card_Basic_Monthly_Income, Work_ID):
+def insertprimaryowner(values):
 
     mycursor = database.cursor()
 
     sqlcommand = ("INSERT INTO primary_card (Card_Name, Card_Birthdate, Card_Place_of_Birth, Card_Sex, Card_Display_Name,"
-                  "Card_Mother_Maiden_Name, Card_Educational_Attainment, Card_Civil_status, Card_No_of_Dependents,)"
-                  "Card_TIN, Card_SSS_GSIS,Card_Car_Ownership, Card_Citizenship, Card_Mobile_Number,"
+                  "Card_Mother_Maiden_Name, Card_Educational_Attainment, Card_Civil_status, Card_No_of_Dependents,"
+                  "Card_TIN, Card_SSS_GSIS, Card_Car_Ownership, Card_Citizenship, Card_Mobile_Number,"
                   "Card_Home_Phone_Number, Card_Address, Card_Zip_code, Card_Email, Card_Preferred_Card_Delivery,"
                   "Card_Basic_Monthly_Income, Work_ID)"
-                  "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s")
-    values = (Card_Name, Card_Birthdate, Card_Place_of_Birth, Card_Sex, Card_Display_Name,
-              Card_Mother_Maiden_Name, Card_Educational_Attainment, Card_Civil_status, Card_No_of_Dependents,
-              Card_TIN, Card_SSS_GSIS,Card_Car_Ownership, Card_Citizenship, Card_Mobile_Number,
-              Card_Home_Phone_Number, Card_Address, Card_Zip_code, Card_Email, Card_Preferred_Card_Delivery,
-              Card_Basic_Monthly_Income, Work_ID)
+                  "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
+
 
     try:
         mycursor.execute(sqlcommand, values)
 
         database.commit()
-        print("✅ Insert to primary_card successful!")
-        print("Rows affected:", mycursor.rowcount)
-        print("Inserted ID:", mycursor.lastrowid)
+        rcount = mycursor.rowcount
+        lrid = mycursor.lastrowid
+        return f"✅ Insert to primary_card successful!\n Rows affected: {rcount}\nInserted ID:{lrid}"
+
 
     except mysql.connector.Error as err:
-        print("Error Occurred: ", err)
         database.rollback()
+        return f"Error Occurred:{err}\n"
 
     finally:
         mycursor.close()
