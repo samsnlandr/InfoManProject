@@ -171,6 +171,11 @@
             cursor: pointer;
         }
 
+        .disabled-dark {
+            background-color: #d3d3d3;
+            color: #555;
+        }
+
         .checkbox-group input[type="checkbox"] {
             margin-right: 8px;
             transform: scale(1.1); 

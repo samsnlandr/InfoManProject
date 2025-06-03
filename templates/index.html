@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Card Holder Application Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
 <body>
     <div class="background-overlay"></div>
 
@@ -19,7 +21,7 @@
             <i class="fas fa-user-circle user-icon"></i>
             <h2>Card Holder Application Form</h2>
             <p class="section-subtitle">About me</p> </div>
-        <form id="applicationForm" class="application-form">
+        <form id="applicationForm" class="application-form" method="POST" action ="/submit"> <!-- Added method and action-->
             <div class="form-group name-group">
                 <div class="input-wrapper required">
                     <input type="text" id="surname" placeholder="Surname" class="input-field" required>
@@ -92,11 +94,11 @@
                 </div>
                 <div class="checkbox-group">
                     <label>Citizenship</label>
-                    <label><input type="radio" name="citizenship" value="filipino" checked> Filipino</label>
-                    <label><input type="radio" name="citizenship" value="non-filipino"> Non-Filipino</label>
+                    <label><input type="radio" name="citizenship" value="filipino" onclick="toggleField(false)"> Filipino</label>
+                    <label><input type="radio" name="citizenship" value="non-filipino" onclick="toggleField(true)"> Non-Filipino</label>
                 </div>
                 <div class="input-wrapper other-citizenship-input-wrapper">
-                    <input type="text" id="otherCitizenship" placeholder="Specify Citizenship" class="input-field">
+                    <input type="text" id="otherCitizenship" placeholder="Specify Citizenship" class="input-field" disabled>
                 </div>
             </div>
 
@@ -127,5 +129,20 @@
             <button type="submit" class="submit-button">Next</button>
         </form>
     </div>
+
+    <script>
+        function toggleField(enable) {
+            const field = document.getElementById("otherCitizenship");
+            field.disabled = !enable;
+
+            if (enable) {
+                field.classList.remove("disabled-dark");
+                }
+            else {
+                field.classList.add("disabled-dark");
+                field.value = "";
+                }
+        }
+    </script>
 </body>
 </html>
