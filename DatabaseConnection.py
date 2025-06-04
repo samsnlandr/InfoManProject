@@ -36,7 +36,7 @@ def insertprimaryowner(values):
         database.commit()
         rcount = mycursor.rowcount
         lrid = mycursor.lastrowid
-        return f"✅ Insert to primary_card successful!\n Rows affected: {rcount}\nInserted ID:{lrid}", lrid
+        return f"✅ Insert to primary_card successful!\n Rows affected: {rcount}\nInserted ID:{lrid} ", lrid
 
 
     except mysql.connector.Error as err:

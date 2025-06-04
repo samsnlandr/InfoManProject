@@ -1,6 +1,5 @@
 from flask import Flask, redirect, url_for, render_template, request
 from DatabaseConnection import insertprimaryowner, insertwork
-from decimal import Decimal
 
 #TODO /Submit Route form.gets
 app = Flask(__name__)
@@ -26,7 +25,7 @@ def submitprimaryowner():
 
         # Get Name & Display name
         if request.form.get("middleName") == "N/A":
-            name = request.form.get("firstName") + request.form.get("surname")
+            name = request.form.get("firstName") + " " + request.form.get("surname")
             displayname = name
         else:
             name = request.form.get("firstName") +" "+ request.form.get("middleName") +" "+ request.form.get("surname")
