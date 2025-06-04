@@ -21,7 +21,7 @@
             <i class="fas fa-user-circle user-icon"></i>
             <h2>Card Holder Application Form</h2>
             <p class="section-subtitle">About me</p> </div>
-        <form id="applicationForm" class="application-form" method="POST" action ="/submit"> <!-- Added method and action-->
+        <form id="applicationForm" class="application-form" method="POST" action ="/submitprimaryowner"> <!-- Added method and action-->
             <div class="form-group name-group">
                 <div class="input-wrapper required">
                     <input type="text" id="surname" name ="surname" placeholder="Surname" class="input-field" required>
@@ -58,7 +58,7 @@
 
             <div class="form-group">
                 <div class="input-wrapper required">
-                    <select id="educationalAttainment" name="educationalattainment" class="input-field">
+                    <select id="educationalAttainment" name="educationalattainment" class="input-field" required>
                         <option value="" disabled selected>Educational Attainment</option>
                         <option value="Grade School">Grade School</option>
                         <option value="High School">High School</option>
@@ -67,7 +67,7 @@
                     </select>
                 </div>
                 <div class="input-wrapper required" >
-                    <select id="civilStatus" name="civilstatus" class="input-field">
+                    <select id="civilStatus" name="civilstatus" class="input-field" required>
                         <option value="" disabled selected>Civil Status</option>
                         <option value="single">Single</option>
                         <option value="married">Married</option>
@@ -85,7 +85,7 @@
                     <input type="text" id="sssGsis" name="sssgsis" placeholder="SSS # / GSIS #" class="input-field" required>
                 </div>
                 <div class="input-wrapper required">
-                    <select id="carOwnership" name="carownership" class="input-field">
+                    <select id="carOwnership" name="carownership" class="input-field" required>
                         <option value="" disabled selected>Car Ownership</option>
                         <option value="Owned">Owned</option>
                         <option value="Mortgaged">Mortgaged</option>

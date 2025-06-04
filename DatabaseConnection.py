@@ -29,49 +29,44 @@ def insertprimaryowner(values):
 
 
     try:
+        print(f"inserted income: {values[19]}{type(values[19])}")
+        print(f"inserted email: {values[17]}{type(values[17])}")
         mycursor.execute(sqlcommand, values)
 
         database.commit()
         rcount = mycursor.rowcount
         lrid = mycursor.lastrowid
-        return f"✅ Insert to primary_card successful!\n Rows affected: {rcount}\nInserted ID:{lrid}"
+        return f"✅ Insert to primary_card successful!\n Rows affected: {rcount}\nInserted ID:{lrid}", lrid
 
 
     except mysql.connector.Error as err:
         database.rollback()
         return f"Error Occurred:{err}\n"
 
-    finally:
-        mycursor.close()
-        database.close()
 
-def insertwork(Work_Employment_Type, Work_Employer_Name, Work_Business_Address, Work_Nature_of_Business,
-               Work_Business_Phone_Number, Work_Years_With_Present_Employer, Work_Position, Work_Zip_Code,
-               Work_Email_Address, Work_Previous_Employer):
+def insertwork(values):
+
     mycursor = database.cursor()
 
     sqlcommand = ("INSERT INTO work"
                   "(Work_Employment_Type, Work_Employer_Name, Work_Business_Address, Work_Nature_of_Business,"
                   "Work_Business_Phone_Number, Work_Years_With_Present_Employer, Work_Position, Work_Zip_Code,"
                   "Work_Email_Address, Work_Previous_Employer)"
-                  "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s")
-    values =  (Work_Employment_Type, Work_Employer_Name, Work_Business_Address, Work_Nature_of_Business,
-               Work_Business_Phone_Number, Work_Years_With_Present_Employer, Work_Position, Work_Zip_Code,
-               Work_Email_Address, Work_Previous_Employer)
+                  "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
 
     try:
         mycursor.execute(sqlcommand, values)
 
         database.commit()
-        print("✅ Insert to work successful!")
-        print("Rows affected:", mycursor.rowcount)
-        print("Inserted ID:", mycursor.lastrowid)
+
+        rcount = mycursor.rowcount
+        lrid = mycursor.lastrowid
+
+        return f"✅ Insert to work successful! \nRows affected: {rcount}\nInserted ID:{lrid} ", lrid
+
 
     except mysql.connector.Error as err:
-        print("Error Occurred: ", err)
         database.rollback()
+        return f"Error Occurred: {err}"
 
-    finally:
-        mycursor.close()
-        database.close()
 
