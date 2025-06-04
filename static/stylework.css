@@ -299,11 +299,19 @@ select.input-field {
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-    width: 100%;
-    max-width: 200px;
+    width:25%;
+    max-width: 3000px;
     align-self: center;
     margin-top: 20px;
 }
+.button-wrapper {
+    display: flex;
+    justify-content: flex-end; 
+    margin-top: 25px;
+    width: 100%;
+    gap: 20px; 
+}
+
 
 .submit-button:hover {
     background-color: #c0392b;
