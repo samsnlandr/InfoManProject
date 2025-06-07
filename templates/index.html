@@ -36,7 +36,8 @@
 
             <div class="form-group">
                 <div class="input-wrapper required">
-                    <input type="date" id="birthdate" name = "birthdate" placeholder="Birthdate (yyyy-mm-dd)" class="input-field" required>
+                <input type="date" id="birthdate" name="birthdate" placeholder="Birthdate (yyyy-mm-dd)" class="input-field" required>
+                    <div id="ageWarning" class="age-warning"></div> 
                 </div>
                 <div class="input-wrapper required">
                     <input type="text" id="placeOfBirth" name="placeofbirth" placeholder="Place of Birth" class="input-field" required>
@@ -92,13 +93,12 @@
                         <option value="None">None</option>
                     </select>
                 </div>
-                <div class="checkbox-group">
-                    <label>Citizenship</label>
-                    <label><input type="radio" name="citizenship" value="filipino" onclick="toggleField(false)"> Filipino</label>
-                    <label><input type="radio" name="citizenship" value="non-filipino" onclick="toggleField(true)"> Non-Filipino</label>
-                </div>
+                <div class="radio-group">
+                        <label><input type="radio" id="citizenshipFilipino" name="citizenship" value="filipino" required> Filipino</label>
+                        <label><input type="radio" id="citizenshipNonFilipino" name="citizenship" value="non-filipino"> Non-Filipino</label>
+                    </div>
                 <div class="input-wrapper other-citizenship-input-wrapper">
-                    <input type="text" id="otherCitizenship" name="othercitizenship" placeholder="Specify Citizenship" class="input-field" disabled>
+                    <input type="text" id="otherCitizenship" name="othercitizenship" placeholder="Specify Citizenship" class="input-field" enable>
                 </div>
             </div>
 
@@ -131,18 +131,109 @@
     </div>
 
     <script>
-        function toggleField(enable) {
-            const field = document.getElementById("otherCitizenship");
-            field.disabled = !enable;
+        document.addEventListener('DOMContentLoaded', () => {
+            const citizenshipFilipino = document.getElementById('citizenshipFilipino');
+            const citizenshipNonFilipino = document.getElementById('citizenshipNonFilipino');
+            const otherCitizenshipInputWrapper = document.querySelector('.other-citizenship-input-wrapper');
+            const otherCitizenshipInput = document.getElementById('otherCitizenship');
 
-            if (enable) {
-                field.classList.remove("disabled-dark");
+            function updateCitizenshipField() {
+                if (citizenshipNonFilipino.checked) {
+                    otherCitizenshipInputWrapper.style.display = 'block'; 
+                    otherCitizenshipInput.setAttribute('required', 'true'); 
+                } else {
+                    otherCitizenshipInputWrapper.style.display = 'none'; 
+                    otherCitizenshipInput.removeAttribute('required'); 
+                    otherCitizenshipInput.value = ''; 
                 }
-            else {
-                field.classList.add("disabled-dark");
-                field.value = "";
+            }
+            
+
+            citizenshipFilipino.addEventListener('change', updateCitizenshipField);
+            citizenshipNonFilipino.addEventListener('change', updateCitizenshipField);
+            
+            updateCitizenshipField();
+            
+
+        const birthdateInput = document.getElementById('birthdate');
+            const ageWarningDiv = document.getElementById('ageWarning');
+            const applicationForm = document.getElementById('applicationForm');
+
+            function calculateAge(birthdateString) {
+                const birthDate = new Date(birthdateString);
+                const today = new Date();
+                let age = today.getFullYear() - birthDate.getFullYear();
+                const monthDifference = today.getMonth() - birthDate.getMonth();
+
+                if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
+                    age--;
                 }
-        }
+                return age;
+            }
+
+            function checkAge() {
+                const birthdateValue = birthdateInput.value;
+                if (birthdateValue) {
+                    const age = calculateAge(birthdateValue);
+                    if (age < 21) { 
+                        ageWarningDiv.textContent = 'Applicant must be 21 years or older to proceed.';
+                        ageWarningDiv.style.color = '#e74c3c';
+                        birthdateInput.style.borderColor = '#e74c3c';
+                    } else {
+                        ageWarningDiv.textContent = '';
+                        birthdateInput.style.borderColor = '#e0e0e0';
+                    }
+                } else {
+                    ageWarningDiv.textContent = '';
+                    birthdateInput.style.borderColor = '#e0e0e0';
+                }
+            }
+
+            birthdateInput.addEventListener('change', checkAge);
+            checkAge(); 
+
+        
+            function showCustomModal(message, callback) {
+                const modal = document.getElementById('customConfirmModal');
+                const modalMessage = document.getElementById('modalMessage');
+                const modalYesBtn = document.getElementById('modalYesBtn');
+                const modalNoBtn = document.getElementById('modalNoBtn'); 
+
+                modalMessage.textContent = message;
+                modal.classList.add('show');
+
+                modalYesBtn.onclick = null;
+                modalNoBtn.onclick = null;
+
+         
+                modalYesBtn.textContent = 'OK';
+                modalYesBtn.classList.remove('confirm-btn', 'cancel-btn');
+                modalYesBtn.classList.add('modal-alert-btn');
+                modalNoBtn.style.display = 'none';
+
+                modalYesBtn.onclick = () => {
+                    modal.classList.remove('show');
+                    if (callback) callback();
+                };
+            }
+
+            applicationForm.addEventListener('submit', function(event) {
+                event.preventDefault(); 
+                if (!birthdateInput.value) {
+                    showCustomModal('Please fill out the birthdate field.');
+                    return; 
+                }
+
+                const age = calculateAge(birthdateInput.value);
+
+                if (age < 21) { 
+                    showCustomModal('Applicant must be 21 years or older to proceed with the application.');
+                } else {
+                    applicationForm.submit();
+                }
+            });
+        });
+
     </script>
 </body>
 </html>
