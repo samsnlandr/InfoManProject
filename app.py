@@ -1,6 +1,7 @@
 from flask import Flask, redirect, url_for, render_template, request
 from DatabaseConnection import insertprimaryowner, insertwork
 
+
 #TODO /Submit Route form.gets
 app = Flask(__name__)
 primary_owner_values = [] #List that contains the infos for primary owner table in SQL
@@ -181,6 +182,16 @@ def submitaboutwork():
 
     else:
         return render_template("aboutwork.html")
+
+
+@app.route("/supplementary_forms")
+def supplementary_forms():
+    return render_template("supplementary.html")
+
+@app.route("/submitsupplementary")
+def submit_supplementary():
+   pass
+
 
 @app.route("/databasetest")
 def databasetest():
