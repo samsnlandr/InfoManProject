@@ -7,39 +7,76 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="confirm.css">
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='confirm.css') }}">
 
    
+    </style>
 </head>
-<body class="flex items-center justify-center min-h-screen">
+<body>
     <div class="background-overlay"></div>
 
-    <div class="top-bar">
+   <div class="top-bar">
         <img src="static/assets/bpi-logo.png" alt="BPI Logo" class="bpi-logo">
     </div>
 
-    <div class="confirmation-card">
-        <i class="fas fa-check-circle confirmation-icon"></i>
-        <h1 class="confirmation-title">Application Submitted Successfully!</h1>
-        <p class="confirmation-message">
-            Thank you for submitting your application. We have received your information and will process it shortly. 
-        </p>
+    <main>
+        <div class="confirmation-card">
+            <i class="fas fa-check-circle confirmation-icon"></i>
+            <h1 class="confirmation-title">Application Submitted Successfully!</h1>
+            <p class="confirmation-message">
+                Thank you for submitting your application. We have received your information and will process it shortly. 
+            </p>
 
-        <!-- fix this brother-->
-        <div class="button-container">
-            <button class="action-button home-button" onclick="window.location.href='index.html'">Return to Home</button>
-            <button class="action-button close-button" onclick="closeWindow()">Close</button>
+            <div class="button-container">
+                <button class="action-button home-button" onclick="window.location.href='index.html'">Return to Home</button>
+                <button class="action-button close-button" id="closeWindowBtn">Close</button>
+            </div>
+        </div>
+    </main>
+
+    <div id="customAlertModal" class="modal-overlay">
+        <div class="modal-content">
+            <p id="modalMessage"></p>
+            <div class="modal-buttons">
+                <button id="modalOkBtn" class="modal-btn modal-alert-btn">OK</button>
+            </div>
         </div>
     </div>
 
+    <footer class="footer">
+        <p>&copy; 2025 Bank of the Philippine Islands. All Rights Reserved.</p>
+    </footer>
+
     <script>
-        function closeWindow() {
-            window.close();
-            setTimeout(() => {
-                alert("If the window did not close, you can close this tab manually.");
-            }, 100); 
-        }
+        document.addEventListener('DOMContentLoaded', () => {
+            function showCustomAlertModal(message, callback) {
+                const modal = document.getElementById('customAlertModal');
+                const modalMessage = modal.querySelector('#modalMessage');
+                const modalOkBtn = modal.querySelector('#modalOkBtn');
+
+                modalMessage.textContent = message; 
+                modal.classList.add('show'); 
+
+                modalOkBtn.onclick = null; 
+                modalOkBtn.onclick = () => {
+                    modal.classList.remove('show'); 
+                    if (callback) callback();
+                };
+            }
+
+            function closeWindow() {
+                window.open('', '_self').close(); 
+                setTimeout(() => {
+                    showCustomAlertModal("If the window did not close, you can close this tab manually.");
+                }, 100); 
+            }
+
+            const closeWindowButton = document.getElementById('closeWindowBtn');
+            if (closeWindowButton) {
+                closeWindowButton.addEventListener('click', closeWindow);
+            }
+        });
     </script>
 </body>
 </html>
