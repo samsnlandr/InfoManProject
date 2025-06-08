@@ -6,98 +6,183 @@
     <title>Card Holder Application Form</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='stylework.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='aboutwork.css') }}">
+
+
 </head>
 <body>
-
     <div class="background-overlay"></div>
-
     <div class="top-bar">
         <img src="static/assets/bpi-logo.png" alt="BPI Logo" class="bpi-logo">
-        <i class="fas fa-bars hamburger-menu"></i>
     </div>
 
-    <div class="form-container">
-        <div class="form-header">
-            <i class="fas fa-user-circle user-icon"></i>
-            <h2>Card Holder Application Form</h2>
-            <p style="font-size: 14px; color: #777; margin-top: 5px;">About My Work</p>
-        </div>
-        <form id="applicationForm" class="application-form" method="POST" action="/submitaboutwork">
-            <div class="form-group">
-                <label>Employment Type</label>
-                <div class="checkbox-group employment-type-group">
-                    <label><input type="radio" name="employmentType" value="employed" required> Employed</label>
-                    <label><input type="radio" name="employmentType" value="self-employed"> Self-employed</label>
-                    <label><input type="radio" name="employmentType" value="retired"> Retired</label>
-                    <label><input type="radio" name="employmentType" value="ofw"> OFW</label>
-                    <label><input type="radio" name="employmentType" value="beneficiaryOfOFW"> Beneficiary of an OFW</label>
-                    <label class="other-checkbox-label">
-                        <input type="radio" name="employmentType" value="others">
-                        Others
-                        <input type="text" id="otherEmploymentType" name="otherEmploymentType" class="input-field-inline" placeholder=""></label>
-                </div>
+    <main>
+        <div class="form-container">
+            <div class="form-header">
+                <i class="fas fa-user-circle user-icon"></i>
+                <h2>Card Holder Application Form</h2>
+                <p style="font-size: 14px; color: #777; margin-top: 5px;">About My Work</p>
             </div>
 
-            <div class="form-group full-width-group">
-                <div class="input-wrapper required">
-                    <input type="text" id="employerBusinessName" name="employerbusinessname" placeholder="Employer / Business Name" class="input-field" required>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="input-wrapper required">
-                    <input type="text" id="yearsWithEmployer" name="yearswithpresentemployer" placeholder="Years with Present Employer / Business" class="input-field" required>
-                </div>
-                <div class="input-wrapper required">
-                    <input type="text" id="position" name="position" placeholder="Position" class="input-field" required>
-                </div>
-                <div class="input-wrapper required">
-                    <input type="text" id="natureOfBusiness" name="natureofbusiness" placeholder="Nature of Business/Industry" class="input-field" required>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="input-wrapper full-width-except-zip required">
-                    <input type="text" id="officeAddressFull" name="officeaddress" placeholder="Office Address Dept., Co. Name, Room No., Floor No., Blk & Lot No., Bldg. Name and/or No., St. or Road Name/No., Village Name/No., Brgy, Municipality or City, Province" class="input-field" required>
-                </div>
-                <div class="input-wrapper zip-code-wrapper required">
-                    <input type="text" id="officeZipCode" name="officezipcode" placeholder="ZIP CODE" class="input-field" required>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-wrapper required">
-                    <input type="tel" id="officePhoneNumber" name="officephonenumber" placeholder="Office / Business Phone Number / Local" class="input-field" required>
-                </div>
-                <div class="input-wrapper required">
-                    <label class="preferred-delivery-label">Preferred Card Delivery Address</label>
-                    <div class="radio-group">
-                        <label><input type="radio" name="preferredDelivery" value="homeAddress" checked required> Home Address</label>
-                        <label><input type="radio" name="preferredDelivery" value="officeAddress"> Office/Business Address</label>
+            <form id="applicationForm" class="application-form" action="supplementary.html">
+                <div class="form-group">
+                    <label style="font-size: 14px; color: #555; white-space: nowrap; margin-right: 5px;">Employment Type</label>
+                    <div class="checkbox-group employment-type-group">
+                        <label><input type="radio" name="employmentType" value="employed" required> Employed</label>
+                        <label><input type="radio" name="employmentType" value="self-employed"> Self-employed</label>
+                        <label><input type="radio" name="employmentType" value="retired"> Retired</label>
+                        <label><input type="radio" name="employmentType" value="ofw"> OFW</label>
+                        <label><input type="radio" name="employmentType" value="beneficiaryOfOFW"> Beneficiary of an OFW</label>
+                        <label class="other-checkbox-label">
+                            <input type="radio" name="employmentType" value="others">
+                            Others
+                        </label>
+                        <div class="input-wrapper other-employment-type-wrapper">
+                             <input type="text" id="otherEmploymentType" class="input-field-inline" placeholder="Specify here">
+                        </div>
                     </div>
                 </div>
-                <div class="input-wrapper required">
-                    <input type="text" id="basicMonthlyIncome" name="basicmonthlyincome" placeholder="Basic Monthly Income" class="input-field" required>
-                </div>
-            </div>
 
-            <div class="form-group full-width-group">
-                <div class="input-wrapper required">
-                    <input type="email" id="officeEmailAddress" name="officeemailaddress" placeholder="Office Email Address" class="input-field" required>
+                <div class="form-group full-width-group">
+                    <div class="input-wrapper required">
+                        <input type="text" id="employerBusinessName" placeholder="Employer / Business Name" class="input-field" required>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group full-width-group">
-                <div class="input-wrapper">
-                    <input type="text" id="previousEmployer" name="previousemployer" placeholder="Previous Employer" class="input-field">
+                <div class="form-group">
+                    <div class="input-wrapper required">
+                        <input type="text" id="yearsWithEmployer" placeholder="Years with Present Employer / Business" class="input-field" required>
+                    </div>
+                    <div class="input-wrapper required">
+                        <input type="text" id="position" placeholder="Position" class="input-field" required>
+                    </div>
+                    <div class="input-wrapper required">
+                        <input type="text" id="natureOfBusiness" placeholder="Nature of Business/Industry" class="input-field" required>
+                    </div>
                 </div>
+
+                <div class="form-group">
+                    <div class="input-wrapper full-width-except-zip required">
+                        <input type="text" id="officeAddressFull" placeholder="Office Address Dept., Co. Name, Room No., Floor No., Blk & Lot No., Bldg. Name and/or No., St. or Road Name/No., Village Name/No., Brgy, Municipality or City, Province" class="input-field" required>
+                    </div>
+                    <div class="input-wrapper zip-code-wrapper required">
+                        <input type="text" id="officeZipCode" placeholder="ZIP CODE" class="input-field" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-wrapper required">
+                        <input type="tel" id="officePhoneNumber" placeholder="Office / Business Phone Number / Local" class="input-field" required>
+                    </div>
+                    <div class="input-wrapper required">
+                        <label class="preferred-delivery-label">Preferred Card Delivery Address</label>
+                        <div class="radio-group">
+                            <label><input type="radio" name="preferredDelivery" value="homeAddress" checked required> Home Address</label>
+                            <label><input type="radio" name="preferredDelivery" value="officeAddress"> Office/Business Address</label>
+                        </div>
+                    </div>
+                    <div class="input-wrapper required">
+                        <input type="text" id="basicMonthlyIncome" placeholder="Basic Monthly Income" class="input-field" required>
+                    </div>
+                </div>
+
+                <div class="form-group full-width-group">
+                    <div class="input-wrapper required">
+                        <input type="email" id="officeEmailAddress" placeholder="Office Email Address" class="input-field" required>
+                    </div>
+                </div>
+
+                <div class="form-group full-width-group">
+                    <div class="input-wrapper">
+                        <input type="text" id="previousEmployer" placeholder="Previous Employer" class="input-field">
+                    </div>
+                </div>
+                <div class="button-wrapper">
+                    <button type="button" id="addAnotherButton" class="submit-button">Add Supplementary</button>
+                    <button type="submit" class="submit-button">Submit</button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Bank of the Philippine Islands. All Rights Reserved.</p>
+    </footer>
+
+    <div id="customAlertModal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <p id="modalMessage"></p>
+            <div class="modal-buttons">
+                <button id="modalOkBtn" class="modal-btn modal-alert-btn">OK</button>
             </div>
-            <div class="button-wrapper">
-        <button type="submit" name ="actionbtn" value="add supplementary" id="addAnotherButton" class="submit-button">Add Supplementary</button>
-        <button type="submit" name ="actionbtn" value="submit" class="submit-button">Submit</button>
-        
-      </div>
-        </form>
+        </div>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const employmentTypeRadios = document.querySelectorAll('input[name="employmentType"]');
+            const otherEmploymentTypeWrapper = document.querySelector('.other-employment-type-wrapper');
+            const otherEmploymentTypeInput = document.getElementById('otherEmploymentType');
+
+            function updateEmploymentTypeField() {
+                let selectedValue = null;
+                employmentTypeRadios.forEach(radio => {
+                    if (radio.checked) {
+                        selectedValue = radio.value;
+                    }
+                });
+
+                if (selectedValue === 'others') {
+                    otherEmploymentTypeWrapper.style.display = 'block'; 
+                    otherEmploymentTypeInput.setAttribute('required', 'true'); 
+                } else {
+                    otherEmploymentTypeWrapper.style.display = 'none'; 
+                    otherEmploymentTypeInput.removeAttribute('required'); 
+                    otherEmploymentTypeInput.value = '';
+                }
+            }
+
+            employmentTypeRadios.forEach(radio => {
+                radio.addEventListener('change', updateEmploymentTypeField);
+            });
+            
+            updateEmploymentTypeField();
+
+            const applicationForm = document.getElementById('applicationForm');
+
+            applicationForm.addEventListener('submit', function(event) {
+                event.preventDefault(); 
+
+                const employmentTypeSelected = document.querySelector('input[name="employmentType"]:checked');
+                if (employmentTypeSelected && employmentTypeSelected.value === 'others' && !otherEmploymentTypeInput.value.trim()) {
+                    showCustomAlertModal('Please specify your employment type.');
+                    otherEmploymentTypeInput.focus();
+                    return;
+                }
+            });
+
+            function showCustomAlertModal(message, callback) {
+                const modal = document.getElementById('customAlertModal');
+                const modalMessage = modal.querySelector('#modalMessage');
+                const modalOkBtn = modal.querySelector('#modalOkBtn');
+
+                modalMessage.textContent = message;
+                modal.style.display = 'flex'; 
+                modal.classList.add('show');
+
+                modalOkBtn.onclick = null;
+                modalOkBtn.onclick = () => {
+                    modal.classList.remove('show');
+                    modal.style.display = 'none'; 
+                    if (callback) callback();
+                };
+            }
+
+             const customAlertModal = document.getElementById('customAlertModal');
+             if (customAlertModal) {
+                 customAlertModal.style.display = 'none';
+             }
+        });
+    </script>
 </body>
 </html>

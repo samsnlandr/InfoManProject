@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BPI Credit Card Application - Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+
+</head>
+<body>
+    <div class="background-overlay"></div>
+
+    <header class="top-bar" role="banner" aria-label="Primary Navigation">
+        <div class="top-bar-container">
+            
+            <a href="#" aria-label="BPI Home">
+                <img src="static/assets/bpi-logo.png" alt="BPI Logo" class="logo-img">
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" aria-labelledby="hero-title">
+            <h1 id="hero-title">Unlock Your Financial Potential with BPI Credit Cards</h1>
+            <p>Discover a world of possibilities with BPI Credit Cards, offering exclusive benefits, secure transactions, and flexible payment options.</p>
+            <button class="cta-button" onclick="window.location.href='card_holder_application.html'">
+                Apply Now for a Primary Card
+            </button>
+        </section>
+
+        <section id="features" class="section-container" aria-labelledby="features-title">
+            <h2 id="features-title" class="section-title">Key Card Features</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <i class="fas fa-coins icon"></i>
+                    <h3>Rewards & Cashback</h3>
+                    <p>Earn points or cashback on every purchase, redeemable for flights, merchandise, and more.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-shield-alt icon"></i>
+                    <h3>Enhanced Security</h3>
+                    <p>Enjoy peace of mind with advanced fraud protection, secure online transactions, and chip technology.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-chart-line icon"></i>
+                    <h3>Flexible Installments</h3>
+                    <p>Convert your purchases into light and easy installment plans with low interest rates.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-globe icon"></i>
+                    <h3>Worldwide Acceptance</h3>
+                    <p>Use your BPI Credit Card at millions of establishments and ATMs globally.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-piggy-bank icon"></i>
+                    <h3>Cash Advance</h3>
+                    <p>Access cash quickly when you need it, directly from your credit limit.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-headset icon"></i>
+                    <h3>24/7 Customer Support</h3>
+                    <p>Our dedicated support team is always ready to assist you, anytime, anywhere.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="how-to-apply" class="section-container" aria-labelledby="how-to-apply-title">
+            <h2 id="how-to-apply-title" class="section-title">How to Apply</h2>
+            <div class="steps-grid">
+                <div class="step-item">
+                    <h3>Step 1: Fill out our Forms</h3>
+                    <p>Complete our secure online application form with your personal and financial details.</p>
+                </div>
+                <div class="step-item">
+                    <h3>Step 2: Submit Requirements</h3>
+                    <p>Upload necessary documents such as valid IDs, income proof, and billing statements.</p>
+                </div>
+                <div class="step-item">
+                    <h3>Step 3: Await Approval</h3>
+                    <p>Our team will review your application. You'll receive updates via email and SMS.</p>
+                </div>
+                <div class="step-item">
+                    <h3>Step 4: Card Delivery</h3>
+                    <p>Once approved, your new BPI Credit Card will be delivered to your nominated address.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="faqs" class="section-container" aria-labelledby="faqs-title">
+            <h2 id="faqs-title" class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        What are the eligibility requirements for a BPI Credit Card?
+                        <i class="fas fa-chevron-down icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Applicants must be at least 21 years old, a Filipino citizen or a foreign resident with a valid visa, and meet minimum income requirements. Other criteria may apply.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How many supplementary cards can I apply for with my credit card?
+                        <i class="fas fa-chevron-down icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>You can apply for a maximum of 2 supplementary cards per credit card.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How long does the application process take?
+                        <i class="fas fa-chevron-down icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Processing time usually takes 5-7 banking days, provided all documents are complete. You will be notified of your application status.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Can I apply for a supplementary card?
+                        <i class="fas fa-chevron-down icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, you can. The supplementary cardholder must be at least 13 years old, and you can apply for up to 2 supplementary cards per credit card.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Bank of the Philippine Islands. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const faqItem = question.closest('.faq-item');
+                    faqItem.classList.toggle('open');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

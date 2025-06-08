@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Card Holder Application Form</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Page with Sticky Footer</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
 </head>
 <body>
     <div class="background-overlay"></div>
@@ -16,118 +16,135 @@
         <img src="static/assets/bpi-logo.png" alt="BPI Logo" class="bpi-logo">
     </div>
 
-    <div class="form-container">
-        <div class="form-header">
-            <i class="fas fa-user-circle user-icon"></i>
-            <h2>Card Holder Application Form</h2>
-            <p class="section-subtitle">About me</p> </div>
-        <form id="applicationForm" class="application-form" method="POST" action ="/submitprimaryowner"> <!-- Added method and action-->
-            <div class="form-group name-group">
-                <div class="input-wrapper required">
-                    <input type="text" id="surname" name ="surname" placeholder="Surname" class="input-field" required>
-                </div>
-                <div class="input-wrapper required">
-                    <input type="text" id="firstName" name="firstName" placeholder="First" class="input-field" required>
-                </div>
-                <div class="input-wrapper required">
-                    <input type="text" id="middleName" name="middleName"  placeholder='Middle (N/A if none)' class="input-field" required>
-                </div>
+    <main>
+        <div class="form-container">
+            <div class="form-header">
+                <i class="fas fa-user-circle user-icon"></i>
+                <h2>Card Holder Application Form</h2>
+                <p class="section-subtitle">About me</p> 
             </div>
+            <form id="applicationForm" class="application-form" method="POST" action="confirmation.html"> 
+                <div class="form-group name-group">
+                    <div class="input-wrapper required">
+                        <input type="text" id="surname" name ="surname" placeholder="Surname" class="input-field" required>
+                    </div>
+                    <div class="input-wrapper required">
+                        <input type="text" id="firstName" name="firstName" placeholder="First" class="input-field" required>
+                    </div>
+                    <div class="input-wrapper required">
+                        <input type="text" id="middleName" name="middleName"  placeholder='Middle (N/A if none)' class="input-field" required>
+                    </div>
+                </div>
 
-            <div class="form-group">
-                <div class="input-wrapper required">
-                <input type="date" id="birthdate" name="birthdate" placeholder="Birthdate (yyyy-mm-dd)" class="input-field" required>
-                    <div id="ageWarning" class="age-warning"></div> 
+                <div class="form-group">
+                    <div class="input-wrapper required">
+                        <input type="date" id="birthdate" name="birthdate" placeholder="Birthdate (yyyy-mm-dd)" class="input-field" required>
+                        <div id="ageWarning" class="age-warning"></div> 
+                    </div>
+                    <div class="input-wrapper required">
+                        <input type="text" id="placeOfBirth" name="placeofbirth" placeholder="Place of Birth" class="input-field" required>
+                    </div>
+                    <div class="input-wrapper required">
+                        <select id="sex" name="sex" class="input-field" required>
+                            <option value="" disabled selected>Sex</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="input-wrapper required">
-                    <input type="text" id="placeOfBirth" name="placeofbirth" placeholder="Place of Birth" class="input-field" required>
-                </div>
-                <div class="input-wrapper required">
-                    <select id="sex" name="sex" class="input-field" required>
-                        <option value="" disabled selected>Sex</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                    </select>
-                </div>
-            </div>
 
-            <div class="form-group full-width-group">
-                <div class="input-wrapper required" style="flex: 1;">
-                    <input type="text" id="mothersMaidenName" name="mothermaidenname" placeholder="Mother's Full Maiden Name (First, Middle, Last)" class="input-field" required>
+                <div class="form-group full-width-group">
+                    <div class="input-wrapper required" style="flex: 1;">
+                        <input type="text" id="mothersMaidenName" name="mothermaidenname" placeholder="Mother's Full Maiden Name (First, Middle, Last)" class="input-field" required>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <div class="input-wrapper required">
-                    <select id="educationalAttainment" name="educationalattainment" class="input-field" required>
-                        <option value="" disabled selected>Educational Attainment</option>
-                        <option value="Grade School">Grade School</option>
-                        <option value="High School">High School</option>
-                        <option value="College">College Graduate</option>
-                        <option value="Post Graduate">Post Graduate</option>
-                    </select>
+                <div class="form-group">
+                    <div class="input-wrapper required">
+                        <select id="educationalAttainment" name="educationalattainment" class="input-field" required>
+                            <option value="" disabled selected>Educational Attainment</option>
+                            <option value="Grade School">Grade School</option>
+                            <option value="High School">High School</option>
+                            <option value="College">College Graduate</option>
+                            <option value="Post Graduate">Post Graduate</option>
+                        </select>
+                    </div>
+                    <div class="input-wrapper required" >
+                        <select id="civilStatus" name="civilstatus" class="input-field" required>
+                            <option value="" disabled selected>Civil Status</option>
+                            <option value="single">Single</option>
+                            <option value="married">Married</option>
+                            <option value="divorced">Divorced</option>
+                            <option value="widowed">Widowed</option>
+                        </select>
+                    </div>
+                    <div class="input-wrapper required">
+                        <input type="text" id="tinNumber" name="tinnumber" placeholder="TIN/Tax Identification Number" class="input-field " required>
+                    </div>
                 </div>
-                <div class="input-wrapper required" >
-                    <select id="civilStatus" name="civilstatus" class="input-field" required>
-                        <option value="" disabled selected>Civil Status</option>
-                        <option value="single">Single</option>
-                        <option value="married">Married</option>
-                        <option value="divorced">Divorced</option>
-                        <option value="widowed">Widowed</option>
-                    </select>
-                </div>
-                <div class="input-wrapper required">
-                    <input type="text" id="tinNumber" name="tinnumber" placeholder="TIN/Tax Identification Number" class="input-field " required>
-                </div>
-            </div>
 
-            <div class="form-group">
-                <div class="input-wrapper required">
-                    <input type="text" id="sssGsis" name="sssgsis" placeholder="SSS # / GSIS #" class="input-field" required>
-                </div>
-                <div class="input-wrapper required">
-                    <select id="carOwnership" name="carownership" class="input-field" required>
-                        <option value="" disabled selected>Car Ownership</option>
-                        <option value="Owned">Owned</option>
-                        <option value="Mortgaged">Mortgaged</option>
-                        <option value="None">None</option>
-                    </select>
-                </div>
-                <div class="radio-group">
+                <div class="form-group">
+                    <div class="input-wrapper required">
+                        <input type="text" id="sssGsis" name="sssgsis" placeholder="SSS # / GSIS #" class="input-field" required>
+                    </div>
+                    <div class="input-wrapper required">
+                        <select id="carOwnership" name="carownership" class="input-field" required>
+                            <option value="" disabled selected>Car Ownership</option>
+                            <option value="Owned">Owned</option>
+                            <option value="Mortgaged">Mortgaged</option>
+                            <option value="None">None</option>
+                        </select>
+                    </div>
+                    <div class="radio-group">
                         <label><input type="radio" id="citizenshipFilipino" name="citizenship" value="filipino" required> Filipino</label>
                         <label><input type="radio" id="citizenshipNonFilipino" name="citizenship" value="non-filipino"> Non-Filipino</label>
                     </div>
-                <div class="input-wrapper other-citizenship-input-wrapper">
-                    <input type="text" id="otherCitizenship" name="othercitizenship" placeholder="Specify Citizenship" class="input-field" enable>
+                    <div class="input-wrapper other-citizenship-input-wrapper">
+                        <input type="text" id="otherCitizenship" name="othercitizenship" placeholder="Specify Citizenship" class="input-field">
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group">
-                <div class="input-wrapper required">
-                    <input type="tel" id="mobileNumber" name="mobilenumber" placeholder="Mobile Number" class="input-field" required>
+                <div class="form-group">
+                    <div class="input-wrapper required">
+                        <input type="tel" id="mobileNumber" name="mobilenumber" placeholder="Mobile Number" class="input-field" required>
+                    </div>
+                    <div class="input-wrapper">
+                        <input type="tel" id="homePhoneNumber" name="homephonenumber" placeholder="Home Phone Number" class="input-field">
+                    </div>
                 </div>
-                <div class="input-wrapper">
-                    <input type="tel" id="homePhoneNumber" name="homephonenumber" placeholder="Home Phone Number" class="input-field">
-                </div>
-            </div>
 
-            <div class="form-group full-width-group">
-                <div class="input-wrapper required" style="flex: 1;">
-                    <input type="text" id="homeAddress" name="homeaddress" placeholder="Home Address" class="input-field" required>
+                <div class="form-group full-width-group">
+                    <div class="input-wrapper required" style="flex: 1;">
+                        <input type="text" id="homeAddress" name="homeaddress" placeholder="Home Address" class="input-field" required>
+                    </div>
                 </div>
-            </div>
 
-            <div class="form-group bottom-row">
-                <div class="input-wrapper required">
-                    <input type="text" id="zipCode" name="zipcode" placeholder="ZIP CODE" class="input-field" required>
+                <div class="form-group bottom-row">
+                    <div class="input-wrapper required">
+                        <input type="text" id="zipCode" name="zipcode" placeholder="ZIP CODE" class="input-field" required>
+                    </div>
+                    <div class="input-wrapper required">
+                        <input type="email" id="emailAddress" name="emailaddress" placeholder="Email Address" class="input-field" required>
+                    </div>
                 </div>
-                <div class="input-wrapper required">
-                    <input type="email" id="emailAddress" name="emailaddress" placeholder="Email Address" class="input-field" required>
-                </div>
-            </div>
 
-            <button type="submit" class="submit-button">Next</button>
-        </form>
+                <button type="submit" class="submit-button">Next</button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Bank of the Philippine Islands. All Rights Reserved.</p>
+    </footer>
+
+    <div id="customConfirmModal" class="modal-overlay">
+        <div class="modal-content">
+            <p id="modalMessage"></p>
+            <div class="modal-buttons">
+                <button id="modalYesBtn" class="modal-btn confirm-btn">OK</button>
+                <button id="modalNoBtn" class="modal-btn cancel-btn" style="display: none;">Cancel</button> 
+            </div>
+        </div>
     </div>
 
     <script>
@@ -147,15 +164,11 @@
                     otherCitizenshipInput.value = ''; 
                 }
             }
-            
-
             citizenshipFilipino.addEventListener('change', updateCitizenshipField);
             citizenshipNonFilipino.addEventListener('change', updateCitizenshipField);
-            
             updateCitizenshipField();
             
-
-        const birthdateInput = document.getElementById('birthdate');
+            const birthdateInput = document.getElementById('birthdate');
             const ageWarningDiv = document.getElementById('ageWarning');
             const applicationForm = document.getElementById('applicationForm');
 
@@ -192,7 +205,6 @@
             birthdateInput.addEventListener('change', checkAge);
             checkAge(); 
 
-        
             function showCustomModal(message, callback) {
                 const modal = document.getElementById('customConfirmModal');
                 const modalMessage = document.getElementById('modalMessage');
@@ -204,12 +216,10 @@
 
                 modalYesBtn.onclick = null;
                 modalNoBtn.onclick = null;
-
-         
                 modalYesBtn.textContent = 'OK';
-                modalYesBtn.classList.remove('confirm-btn', 'cancel-btn');
-                modalYesBtn.classList.add('modal-alert-btn');
-                modalNoBtn.style.display = 'none';
+                modalYesBtn.classList.remove('confirm-btn', 'cancel-btn'); 
+                modalYesBtn.classList.add('modal-alert-btn'); 
+                modalNoBtn.style.display = 'none'; 
 
                 modalYesBtn.onclick = () => {
                     modal.classList.remove('show');
@@ -229,11 +239,11 @@
                 if (age < 21) { 
                     showCustomModal('Applicant must be 21 years or older to proceed with the application.');
                 } else {
-                    applicationForm.submit();
+                  
+                    applicationForm.submit(); 
                 }
             });
         });
-
     </script>
 </body>
 </html>
