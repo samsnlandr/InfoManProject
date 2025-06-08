@@ -1,154 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Supplementary Card Application Form</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="{{ url_for('static', filename='stylesup.css') }}">
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Supplementary Card Application Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='supp.css') }}">
 </head>
 <body>
     <div class="background-overlay"></div>
 
     <div class="top-bar">
-        <img src="static/assets/bpi-logo.png" alt="BPI Logo" class="bpi-logo">     
+        <img src="static/assets/bpi-logo.png" alt="BPI Logo" class="bpi-logo">
     </div>
 
-    <div class="form-container">
-        <div class="form-header">
-            <i class="fas fa-user-circle user-icon"></i>
-            <h2>Supplementary Card Holder Application Form</h2>
-            <p class="section-subtitle">Supplementary</p>
+    <main>
+        <div class="form-container">
+            <div class="form-header">
+                <i class="fas fa-user-circle user-icon"></i>
+                <h2>Supplementary Card Holder Application Form</h2>
+                <p class="section-subtitle">Supplementary</p>
+            </div>
+
+            <form id="supplementaryApplicationForm" class="application-form" method="POST" action="/submit_supplementary">
+                <div class="form-group name-group">
+                    <div class="input-wrapper required">
+                        <input type="text" id="supSurname" name="supSurname" placeholder="Surname" class="input-field" required>
+                    </div>
+                    <div class="input-wrapper required">
+                        <input type="text" id="supFirstName" name="supFirstName" placeholder="First" class="input-field" required>
+                    </div>
+                    <div class="input-wrapper required">
+                        <input type="text" id="supMiddleName" name="supMiddleName" placeholder="Middle (N/A if none)" class="input-field" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-wrapper required">
+                        <select id="supRelationship" name="supRelationship" class="input-field" required>
+                            <option value="" disabled selected>Relationship</option>
+                            <option value="spouse">Spouse</option>
+                            <option value="child">Child</option>
+                            <option value="parent">Parent</option>
+                            <option value="sibling">Sibling</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="input-wrapper other-relationship-input-wrapper">
+                        <input type="text" id="supOtherRelationship" name="supOtherRelationship" placeholder="Specify Relationship" class="input-field">
+                    </div>
+
+                    <div class="input-wrapper required">
+                        <input type="date" id="supBirthdate" name="supBirthdate" class="input-field" required>
+                        <div id="supAgeWarning" class="age-warning"></div> 
+                    </div>
+                    <div class="input-wrapper required">
+                        <input type="text" id="supPlaceOfBirth" name="supPlaceOfBirth" placeholder="Place of Birth" class="input-field" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-wrapper required">
+                        <select id="supSex" name="supSex" class="input-field" required>
+                            <option value="" disabled selected>Sex</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+
+                    <div class="input-wrapper required">
+                        <select id="supCivilStatus" name="supCivilStatus" class="input-field" required>
+                            <option value="" disabled selected>Civil Status</option>
+                            <option value="single">Single</option>
+                            <option value="married">Married</option>
+                            <option value="separated">Separated</option>
+                            <option value="widowed">Widowed</option>
+                        </select>
+                    </div>
+
+                    <div class="radio-group">
+                        <label>Citizenship</label>
+                        <label><input type="radio" id="supCitizenshipFilipino" name="supCitizenship" value="filipino" required> Filipino</label>
+                        <label><input type="radio" id="supCitizenshipNonFilipino" name="supCitizenship" value="non-filipino"> Non-Filipino</label>
+                    </div>
+                    
+                    <div class="input-wrapper other-citizenship-input-wrapper">
+                        <input type="text" id="supOtherCitizenship" name="supOtherCitizenship" placeholder="Specify Citizenship" class="input-field">
+                    </div>
+                </div>
+
+                <div class="form-group full-width-group">
+                    <div class="input-wrapper required">
+                        <input type="text" id="supHomeAddress" name="supHomeAddress" placeholder="Unit, Floor, Street, Brgy, City, Province" class="input-field" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-wrapper required">
+                        <input type="text" id="supZipCode" name="supZipCode" pattern="\d{4,5}" inputmode="numeric" placeholder="ZIP CODE" class="input-field" required>
+                    </div>
+                    <div class="input-wrapper">
+                        <input type="tel" id="supHomePhoneNumber" name="supHomePhoneNumber" placeholder="Home Phone Number" class="input-field">
+                    </div>
+                    <div class="input-wrapper required">
+                        <input type="tel" id="supMobileNumber" name="supMobileNumber" placeholder="Mobile Number" class="input-field" required>
+                    </div>
+                </div>
+
+                <div class="form-group full-width-group">
+                    <div class="input-wrapper required">
+                        <input type="email" id="supEmailAddress" name="supEmailAddress" placeholder="Email Address" class="input-field" required>
+                    </div>
+                </div>
+
+                <div class="form-group full-width-group">
+                    <div class="input-wrapper required">
+                        <input type="text" id="supEmployerBusinessName" name="supEmployerBusinessName" placeholder="Employer/Business Name" class="input-field" required>
+                    </div>
+                </div>
+                <div class="form-group full-width-group">
+                    <div class="input-wrapper required">
+                        <input type="text" id="supEmployerBusinessAddress" name="supEmployerBusinessAddress" placeholder="Employer/Business Address" class="input-field" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-wrapper required">
+                        <input type="text" id="supSourceOfFunds" name="supSourceOfFunds" placeholder="Source of Funds" class="input-field" required>
+                    </div>
+                    <div class="input-wrapper required">
+                        <input type="text" id="supNatureOfBusiness" name="supNatureOfBusiness" placeholder="Industry" class="input-field" required>
+                    </div>
+                    <div class="input-wrapper required">
+                        <input type="tel" id="supOfficePhoneNumber" name="supOfficePhoneNumber" placeholder="Phone Number/Local" class="input-field" required>
+                    </div>
+                </div>
+
+                <div class="button-wrapper">
+                    <button type="button" id="addAnotherButton" class="submit-button">Add another</button>
+                    <button type="submit" class="submit-button">Submit</button>
+                </div>
+            </form>
         </div>
-
-        <form id="supplementaryApplicationForm" class="application-form" method="POST" action="/submit_supplementary">
-
-
-            <div class="form-group name-group">
-                <div class="input-wrapper required">
-                    <input type="text" id="supSurname" name="supSurname" placeholder="Surname" class="input-field" required>
-                </div>
-                <div class="input-wrapper required">
-                    <input type="text" id="supFirstName" name="supFirstName" placeholder="First" class="input-field" required>
-                </div>
-                <div class="input-wrapper required">
-                    <input type="text" id="supMiddleName" name="supMiddleName" placeholder="Middle (N/A if none)" class="input-field" required>
-                </div>
-            </div>
-
-            <!-- PERSONAL -->
-            <div class="form-group">
-                <div class="input-wrapper required">
-                    <select id="supRelationship" name="supRelationship" class="input-field" required>
-                        <option value="" disabled selected>Relationship</option>
-                        <option value="spouse">Spouse</option>
-                        <option value="child">Child</option>
-                        <option value="parent">Parent</option>
-                        <option value="sibling">Sibling</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-
-                <div class="input-wrapper other-relationship-input-wrapper"> 
-                    <input type="text" id="supOtherRelationship" name="supOtherRelationship" placeholder="Specify Relationship" class="input-field">
-                </div>
-
-                <div class="input-wrapper required">
-                    <input type="date" id="supBirthdate" name="supBirthdate" class="input-field" required>
-                    <div id="supAgeWarning" class="age-warning"></div> 
-                </div>
-                <div class="input-wrapper required">
-                    <input type="text" id="supPlaceOfBirth" name="supPlaceOfBirth" placeholder="Place of Birth" class="input-field" required>
-                </div>
-            </div>
-
-            <!-- SEX/CIVIL -->
-            <div class="form-group">
-                <div class="input-wrapper required">
-                    <select id="supSex" name="supSex" class="input-field" required>
-                        <option value="" disabled selected>Sex</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                    </select>
-                </div>
-
-                <div class="input-wrapper required">
-                    <select id="supCivilStatus" name="supCivilStatus" class="input-field" required>
-                        <option value="" disabled selected>Civil Status</option>
-                        <option value="single">Single</option>
-                        <option value="married">Married</option>
-                        <option value="separated">Separated</option>
-                        <option value="widowed">Widowed</option>
-                    </select>
-                </div>
-
-                <div class="radio-group">
-                    <label><input type="radio" id="supCitizenshipFilipino" name="supCitizenship" value="filipino" required> Filipino</label>
-                    <label><input type="radio" id="supCitizenshipNonFilipino" name="supCitizenship" value="non-filipino"> Non-Filipino</label>
-                </div>
-                
-                <div class="input-wrapper other-citizenship-input-wrapper">
-                    <input type="text" id="supOtherCitizenship" name="supOtherCitizenship" placeholder="Specify Citizenship" class="input-field">
-                </div>
-            </div>
-
-            <!-- Address -->
-            <div class="form-group full-width-group">
-                <div class="input-wrapper required">
-                    <input type="text" id="supHomeAddress" name="supHomeAddress" placeholder="Unit, Floor, Street, Brgy, City, Province" class="input-field" required>
-                </div>
-            </div>
-
-            <!-- Contact Deets -->
-            <div class="form-group">
-                <div class="input-wrapper required">
-                    <input type="text" id="supZipCode" name="supZipCode" pattern="\d{4,5}" inputmode="numeric" placeholder="ZIP CODE" class="input-field" required>
-                </div>
-                <div class="input-wrapper">
-                    <input type="tel" id="supHomePhoneNumber" name="supHomePhoneNumber" placeholder="Home Phone Number" class="input-field">
-                </div>
-                <div class="input-wrapper required">
-                    <input type="tel" id="supMobileNumber" name="supMobileNumber" placeholder="Mobile Number" class="input-field" required>
-                </div>
-            </div>
-
-            <div class="form-group full-width-group">
-                <div class="input-wrapper required">
-                    <input type="email" id="supEmailAddress" name="supEmailAddress" placeholder="Email Address" class="input-field" required>
-                </div>
-            </div>
-
-            <!-- Employment Details -->
-            <div class="form-group full-width-group">
-                <div class="input-wrapper required">
-                    <input type="text" id="supEmployerBusinessName" name="supEmployerBusinessName" placeholder="Employer/Business Name" class="input-field" required>
-                </div>
-            </div>
-            <div class="form-group full-width-group">
-                <div class="input-wrapper required">
-                    <input type="text" id="supEmployerBusinessAddress" name="supEmployerBusinessAddress" placeholder="Employer/Business Address" class="input-field" required>
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="input-wrapper required">
-                    <input type="text" id="supSourceOfFunds" name="supSourceOfFunds" placeholder="Source of Funds" class="input-field" required>
-                </div>
-                <div class="input-wrapper required">
-                    <input type="text" id="supNatureOfBusiness" name="supNatureOfBusiness" placeholder="Industry" class="input-field" required>
-                </div>
-                <div class="input-wrapper required">
-                    <input type="tel" id="supOfficePhoneNumber" name="supOfficePhoneNumber" placeholder="Phone Number/Local" class="input-field" required>
-                </div>
-            </div>
-
-            <div class="button-wrapper">
-                <button type="button" id="addAnotherButton" class="submit-button">Add another</button>
-                <button type="submit" class="submit-button">Submit</button>
-            </div>
-        </form>
-    </div>
+    </main>
 
     <div id="customAlertModal" class="modal-overlay">
         <div class="modal-content">
@@ -158,10 +153,13 @@
             </div>
         </div>
     </div>
-  
-  <script>
-        document.addEventListener('DOMContentLoaded', () => {
 
+    <footer class="footer">
+        <p>&copy; 2025 Bank of the Philippine Islands. All Rights Reserved.</p>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
             const supCitizenshipFilipino = document.getElementById('supCitizenshipFilipino');
             const supCitizenshipNonFilipino = document.getElementById('supCitizenshipNonFilipino'); 
             const supOtherCitizenshipInputWrapper = document.querySelector('.other-citizenship-input-wrapper');
@@ -180,8 +178,6 @@
             
             supCitizenshipFilipino.addEventListener('change', updateSupCitizenshipField);
             supCitizenshipNonFilipino.addEventListener('change', updateSupCitizenshipField);
-
-
             updateSupCitizenshipField();
 
             const supRelationshipSelect = document.getElementById('supRelationship');
@@ -202,7 +198,6 @@
             supRelationshipSelect.addEventListener('change', updateSupRelationshipField);
             updateSupRelationshipField();
 
-
             const supBirthdateInput = document.getElementById('supBirthdate');
             const supAgeWarningDiv = document.getElementById('supAgeWarning'); 
             const supplementaryApplicationForm = document.getElementById('supplementaryApplicationForm');
@@ -218,7 +213,6 @@
                 }
                 return age;
             }
-
             function checkSupAge() {
                 const birthdateValue = supBirthdateInput.value;
                 if (birthdateValue) {
@@ -238,7 +232,6 @@
                 }
             }
             supBirthdateInput.addEventListener('change', checkSupAge);
-  
             checkSupAge();
 
             function showCustomAlertModal(message, callback) {
@@ -257,10 +250,10 @@
             }
 
             supplementaryApplicationForm.addEventListener('submit', function(event) {
-                event.preventDefault();        
+                event.preventDefault();        
                 if (!supBirthdateInput.value) {
                     showCustomAlertModal('Please fill out the birthdate field.');
-
+                    return; 
                 }
                 const age = calculateAge(supBirthdateInput.value);
                 if (age < 13) { 
@@ -275,7 +268,6 @@
                 }
                 supplementaryApplicationForm.submit();
             });
-
         });
     </script>
 </body>
