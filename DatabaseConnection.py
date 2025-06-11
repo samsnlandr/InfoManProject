@@ -37,7 +37,8 @@ def insertprimaryowner(values):
         database.commit()
         rcount = mycursor.rowcount
         lrid = mycursor.lastrowid
-        return f"Insert to primary_card successful!\n Rows affected: {rcount}\nInserted ID:{lrid} ", lrid
+        successline = f"Insert to primary_card successful!\n Rows affected: {rcount}\nInserted ID:{lrid} "
+        return successline, lrid
 
 
     except mysql.connector.Error as err:
@@ -62,9 +63,35 @@ def insertwork(values):
 
         rcount = mycursor.rowcount
         lrid = mycursor.lastrowid
+        successline = f"Insert to work successful! \nRows affected: {rcount}\nInserted ID:{lrid}"
 
-        return f"Insert to work successful! \nRows affected: {rcount}\nInserted ID:{lrid} ", lrid
+        return successline , lrid
 
+    except mysql.connector.Error as err:
+        database.rollback()
+        return f"Error Occurred: {err}"
+
+def insertsupplementary(values, execount):
+    mycursor = database.cursor()
+
+    sqlcommand = ("INSERT INTO supplementary"
+                  "(SC_Name, SC_Birthday, SC_Place_of_Birth, SC_Sex, SC_Civil_Status,"
+                  "SC_Citizenship, SC_Address, SC_Zip_Code, SC_Home_Phone_Number,"
+                  "SC_Mobile_Number, SC_Email_Address, SC_Employer_Business_Name,"
+                  "SC_Employer_Business_Address, SC_Source_of_Funds, SC_Nature_of_Business_Industry,"
+                  "SC_Business_Number, SC_Relationship_to_Principal_Cardholder, Primary_Card_ID)"
+                  "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
+
+    try:
+        mycursor.execute(sqlcommand, values)
+
+        database.commit()
+
+        rcount = mycursor.rowcount
+        lrid = mycursor.lastrowid
+        successline = f"Insert to supplementary_{execount} successful! \nRows affected: {rcount}\nInserted ID:{lrid}"
+
+        return successline, lrid
 
     except mysql.connector.Error as err:
         database.rollback()

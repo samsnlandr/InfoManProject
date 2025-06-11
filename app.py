@@ -1,10 +1,11 @@
 from flask import Flask, redirect, url_for, render_template, request
-from DatabaseConnection import insertprimaryowner, insertwork
+from DatabaseConnection import insertprimaryowner, insertwork, insertsupplementary
 
 app = Flask(__name__)
 primary_owner_values = [] #List that contains the infos for primary owner table in SQL
 about_work_values = [] #List that contains the infos for work table in SQL
-supplementary_1_values = [] #List that contains the infos for work table in SQL
+supplementary_1_values = [] #List that contains the infos for supplementary1 table in SQL
+supplementary_2_values = [] #List that contains the infos for supplementary2 in SQL
 preferred_card_delivery = None #Variable to fetch from different page
 basic_monthly_income_global = None
 
@@ -12,8 +13,12 @@ basic_monthly_income_global = None
 
 
 @app.route("/")
-def home():
-    return redirect(url_for("fill_out_forms"))
+def redirect_homepage():
+    return redirect(url_for("homepage"))
+
+@app.route("/homepage")
+def homepage():
+    return render_template("homepage.html")
 
 @app.route("/Card_Holder_Application_Form")
 def fill_out_forms():
@@ -51,7 +56,7 @@ def submitprimaryowner():
         educationalattainment = request.form.get("educationalattainment")
 
         # Get noofdependents
-        noofdependents = 0 # TODO Here is temporary values. fetch from supplementary count
+        noofdependents = 0
 
         # Get civilstatus
         civilstatus = request.form.get("civilstatus")
@@ -103,7 +108,6 @@ def submitprimaryowner():
 
         # Get emailaddress
         emailaddress = request.form.get("emailaddress")
-        print("Email Received:", emailaddress)
 
 
         global primary_owner_values
@@ -116,7 +120,7 @@ def submitprimaryowner():
         return redirect(url_for("work_forms"))
 
     else:
-        return render_template("index.html")
+        return redirect(url_for("fill_out_forms"))
 
 @app.route("/About_Work_Form")
 def work_forms():
@@ -125,7 +129,6 @@ def work_forms():
 @app.route("/submitaboutwork", methods = ["POST", "GET"])
 def submitaboutwork():
     if request.method == "POST":
-
         # Get employmenttype
         employmenttype = request.form.get("employmentType")
         if employmenttype == "others":
@@ -177,14 +180,14 @@ def submitaboutwork():
                              officeemailaddress, previousemployer]
 
         action_val = request.form.get("actionbtn")
+
         if action_val == "add supplementary":
              return redirect(url_for("supplementary_forms"))
-        elif action_val == "final submit":
-            return redirect(url_for("databasetest")) #TODO Change and replace with InjectDatabasePrimaryOnly
-
+        elif action_val == "submit":
+            return redirect(url_for("primaryinjector"))
 
     else:
-        return render_template("aboutwork.html")
+        return redirect(url_for("work_forms"))
 
 
 @app.route("/supplementary_forms")
@@ -194,186 +197,206 @@ def supplementary_forms():
 @app.route("/submitsupplementary", methods =['POST', 'GET'])
 def submit_supplementary1():
 
-    # Get name
-    surname = request.form.get("supSurname")
-    firstname = request.form.get("supFirstName")
-    middlename = request.form.get("supMiddleName")
+    if request.method == "POST":
+        # Get name
+        surname = request.form.get("supSurname")
+        firstname = request.form.get("supFirstName")
+        middlename = request.form.get("supMiddleName")
 
-    if middlename == "N/A":
-        name = firstname + " " + surname
+        if middlename == "N/A":
+            name = firstname + " " + surname
+        else:
+            name = firstname + " " + middlename + " " + surname
+
+        # Get relationship
+        relationship = request.form.get("supRelationship")
+        if relationship == "other":
+            relationship = request.form.get("supOtherRelationship")
+
+        # Get birthday
+        birthday = request.form.get("supBirthdate")
+
+        # Get placeofbirth
+        placeofbirth = request.form.get("supPlaceOfBirth")
+
+        # Get sex
+        sex = request.form.get("supSex")
+        if sex == "male":
+            sex = "M"
+        elif sex == "female":
+            sex = "F"
+
+        # Get civilstatus
+        civilstatus = request.form.get("supCivilStatus")
+        if civilstatus == "single":
+            civilstatus = "S"
+        elif civilstatus == "married":
+            civilstatus = "M"
+        elif civilstatus == "divorced":
+            civilstatus = "D"
+        elif civilstatus == "Widowed":
+            civilstatus = "W"
+
+        # Get citizenship
+        citizenship = request.form.get("supCitizenship")
+        if citizenship == "non-filipino":
+            citizenship = request.form.get("supOtherCitizenship")
+
+        # Get address
+        address = request.form.get("supHomeAddress")
+
+        # Get zipcode
+        zipcode = request.form.get("supZipCode")
+
+        # Get homephone
+        homephone = request.form.get("supHomePhoneNumber")
+
+        # Get mobilephone
+        mobilephone = request.form.get("supMobileNumber")
+
+        # Get email
+        email = request.form.get("supEmailAddress")
+
+        # Get employername
+        employername = request.form.get("supEmployerBusinessName")
+
+        # Get employeraddress
+        employeraddress = request.form.get("supEmployerBusinessAddress")
+
+        # Get sourceoffunds
+        sourceoffunds = request.form.get("supSourceOfFunds")
+
+        # Get naturebusiness
+        naturebusiness = request.form.get("supNatureOfBusiness")
+
+        # Get officephone
+        officephone = request.form.get("supOfficePhoneNumber")
+
+        global supplementary_1_values
+        supplementary_1_values = [name, birthday, placeofbirth, sex, civilstatus, citizenship, address, zipcode,
+                                  homephone,
+                                  mobilephone, email, employername, employeraddress, sourceoffunds, naturebusiness,
+                                  officephone, relationship]
+        # action button
+        action_val = request.form.get("actionbtn")
+        if action_val == "addanother":
+            print(f"button value:{action_val}")
+            return redirect(url_for("supplementary_forms_2"))
+        elif action_val == "submit":
+            print(f"button value:{action_val}")
+            return redirect(url_for("inject_supplementary_1"))
     else:
-        name = firstname + " " + middlename + " " + surname
+        return redirect(url_for("supplementary_forms"))
 
-    # Get relationship #TODO add functionalities for other
-    relationship = request.form.get("supRelationship")
-
-    # Get birthday
-    birthday = request.form.get("supBirthdate")
-
-    # Get placeofbirth
-    placeofbirth = request.form.get("supPlaceOfBirth")
-
-    # Get sex
-    sex = request.form.get("supSex")
-    if sex == "male":
-        sex = "M"
-    elif sex == "female":
-        sex = "F"
-
-    # Get civilstatus
-    civilstatus = request.form.get("supCivilStatus")
-    if civilstatus == "single":
-        civilstatus = "S"
-    elif civilstatus == "married":
-        civilstatus = "M"
-    elif civilstatus == "divorced":
-        civilstatus = "D"
-    elif civilstatus == "Widowed":
-        civilstatus = "W"
-
-    # Get citizenship #TODO Add functionalities for non-filipino
-    citizenship = request.form.get("supCitizenship")
-
-    # Get address
-    address = request.form.get("supHomeAddress")
-
-    # Get zipcode
-    zipcode = request.form.get("supZipCode")
-
-    # Get homephone
-    homephone = request.form.get("supHomePhoneNumber")
-
-    # Get mobilephone
-    mobilephone = request.form.get("supMobileNumber")
-
-    # Get email
-    email = request.form.get("supEmailAddress")
-
-    # Get employername
-    employername = request.form.get("supEmployerBusinessName")
-
-    # Get employeraddress
-    employeraddress = request.form.get("supEmployerBusinessAddress")
-
-    # Get sourceoffunds
-    sourceoffunds = request.form.get("supSourceOfFunds")
-
-    # Get naturebusiness
-    naturebusiness = request.form.get("supNatureOfBusiness")
-
-    # Get officephone
-    officephone = request.form.get("supOfficePhoneNumber")
-
-    global supplementary_1_values
-    supplementary_1_values = [name, birthday, placeofbirth, sex, civilstatus, citizenship, address, zipcode, homephone,
-                              mobilephone, email, employername, employeraddress, sourceoffunds, naturebusiness, officephone,
-                              relationship] #TODO append the primary card id after putting them in the database
-
-    # action button
-    actionbtn = request.form.get("actionbtn")
-    if actionbtn == "add another":
-       return redirect(url_for("supplementary_forms_2"))
-    elif actionbtn == "submit":
-        return redirect(url_for("")) #TODO injectsupp1
 
 @app.route("/supplementary_forms_2")
 def supplementary_forms_2():
-    render_template("supplementary2.html")
+    return render_template("supplementary2.html")
 
+@app.route("/submitsupplementary2", methods = ['POST', 'GET'])
 def submit_supplementary2():
+    if request.method == "POST":
 
-    # Get name
-    surname = request.form.get("supSurname")
-    firstname = request.form.get("supFirstName")
-    middlename = request.form.get("supMiddleName")
+        # Get name
+        surname = request.form.get("supSurname")
+        firstname = request.form.get("supFirstName")
+        middlename = request.form.get("supMiddleName")
 
-    if middlename == "N/A":
-        name = firstname + " " + surname
+        if middlename == "N/A":
+            name = firstname + " " + surname
+        else:
+            name = firstname + " " + middlename + " " + surname
+
+        # Get relationship
+        relationship = request.form.get("supRelationship")
+        if relationship == "other":
+            relationship = request.form.get("supOtherRelationship")
+
+        # Get birthday
+        birthday = request.form.get("supBirthdate")
+
+        # Get placeofbirth
+        placeofbirth = request.form.get("supPlaceOfBirth")
+
+        # Get sex
+        sex = request.form.get("supSex")
+        if sex == "male":
+            sex = "M"
+        elif sex == "female":
+            sex = "F"
+
+        # Get civilstatus
+        civilstatus = request.form.get("supCivilStatus")
+        if civilstatus == "single":
+            civilstatus = "S"
+        elif civilstatus == "married":
+            civilstatus = "M"
+        elif civilstatus == "divorced":
+            civilstatus = "D"
+        elif civilstatus == "Widowed":
+            civilstatus = "W"
+
+        # Get citizenship #
+        citizenship = request.form.get("supCitizenship")
+        if citizenship == "non-filipino":
+            citizenship = request.form.get("supOtherCitizenship")
+
+        # Get address
+        address = request.form.get("supHomeAddress")
+
+        # Get zipcode
+        zipcode = request.form.get("supZipCode")
+
+        # Get homephone
+        homephone = request.form.get("supHomePhoneNumber")
+
+        # Get mobilephone
+        mobilephone = request.form.get("supMobileNumber")
+
+        # Get email
+        email = request.form.get("supEmailAddress")
+
+        # Get employername
+        employername = request.form.get("supEmployerBusinessName")
+
+        # Get employeraddress
+        employeraddress = request.form.get("supEmployerBusinessAddress")
+
+        # Get sourceoffunds
+        sourceoffunds = request.form.get("supSourceOfFunds")
+
+        # Get naturebusiness
+        naturebusiness = request.form.get("supNatureOfBusiness")
+
+        # Get officephone
+        officephone = request.form.get("supOfficePhoneNumber")
+
+        global supplementary_1_values
+        supplementary_1_values = [name, birthday, placeofbirth, sex, civilstatus, citizenship, address, zipcode,
+                                  homephone,
+                                  mobilephone, email, employername, employeraddress, sourceoffunds, naturebusiness,
+                                  officephone,
+                                  relationship]
+
+        return redirect(url_for("inject_supplementary_2"))
     else:
-        name = firstname + " " + middlename + " " + surname
-
-    # Get relationship #TODO add functionalities for other
-    relationship = request.form.get("supRelationship")
-
-    # Get birthday
-    birthday = request.form.get("supBirthdate")
-
-    # Get placeofbirth
-    placeofbirth = request.form.get("supPlaceOfBirth")
-
-    # Get sex
-    sex = request.form.get("supSex")
-    if sex == "male":
-        sex = "M"
-    elif sex == "female":
-        sex = "F"
-
-    # Get civilstatus
-    civilstatus = request.form.get("supCivilStatus")
-    if civilstatus == "single":
-        civilstatus = "S"
-    elif civilstatus == "married":
-        civilstatus = "M"
-    elif civilstatus == "divorced":
-        civilstatus = "D"
-    elif civilstatus == "Widowed":
-        civilstatus = "W"
-
-    # Get citizenship #TODO Add functionalities for non-filipino
-    citizenship = request.form.get("supCitizenship")
-
-    # Get address
-    address = request.form.get("supHomeAddress")
-
-    # Get zipcode
-    zipcode = request.form.get("supZipCode")
-
-    # Get homephone
-    homephone = request.form.get("supHomePhoneNumber")
-
-    # Get mobilephone
-    mobilephone = request.form.get("supMobileNumber")
-
-    # Get email
-    email = request.form.get("supEmailAddress")
-
-    # Get employername
-    employername = request.form.get("supEmployerBusinessName")
-
-    # Get employeraddress
-    employeraddress = request.form.get("supEmployerBusinessAddress")
-
-    # Get sourceoffunds
-    sourceoffunds = request.form.get("supSourceOfFunds")
-
-    # Get naturebusiness
-    naturebusiness = request.form.get("supNatureOfBusiness")
-
-    # Get officephone
-    officephone = request.form.get("supOfficePhoneNumber")
-
-    global supplementary_1_values
-    supplementary_1_values = [name, birthday, placeofbirth, sex, civilstatus, citizenship, address, zipcode, homephone,
-                              mobilephone, email, employername, employeraddress, sourceoffunds, naturebusiness, officephone,
-                              relationship] #TODO append the primary card id after putting them in the database
-
-    return redirect(url_for("")) #TODO injectsupp2
+        return redirect(url_for("supplementary_forms_2"))
 
 
-
-
-@app.route("/databasetest")
-def databasetest(): #TODO to be changed with different injector functions
+@app.route("/inject_primary_only")
+def primaryinjector():              #Function to insert record, 0 dependents
     global primary_owner_values
     global about_work_values
     global preferred_card_delivery
+    global basic_monthly_income_global
 
+    primary_owner_values[8] = 0
 
     # Get basicmonthlyincome
     primary_owner_values.append(preferred_card_delivery)
     primary_owner_values.append(basic_monthly_income_global)
 
-    worksuccess, work_id_val = insertwork(about_work_values) #insert and receive workid
+    worksuccess, work_id_val = insertwork(about_work_values)  # insert and receive workid
     print(worksuccess)
 
     primary_owner_values.append(work_id_val)
@@ -381,8 +404,73 @@ def databasetest(): #TODO to be changed with different injector functions
     pownersuccess, primary_id_val = insertprimaryowner(primary_owner_values)
     print(pownersuccess)
 
+    return redirect(url_for("confirmation_page"))
 
-    return redirect(url_for("home"))
+@app.route("/inject_supplementary_1")
+def inject_supplementary_1():
+    global primary_owner_values
+    global about_work_values
+    global supplementary_1_values
+    global preferred_card_delivery
+    global basic_monthly_income_global
+
+    primary_owner_values[8] = 1
+
+    # Get basicmonthlyincome
+    primary_owner_values.append(preferred_card_delivery)
+    primary_owner_values.append(basic_monthly_income_global)
+
+    worksuccess, work_id_val = insertwork(about_work_values)  # insert and receive workid
+    print(worksuccess)
+
+    primary_owner_values.append(work_id_val)
+
+    pownersuccess, primary_id_val = insertprimaryowner(primary_owner_values)
+    print(pownersuccess)
+
+    supplementary_1_values.append(primary_id_val)
+    supplementary1success, supp_id_val = insertsupplementary(supplementary_1_values, 1)
+    print(supplementary1success)
+
+    return redirect(url_for("confirmation_page"))
+
+
+@app.route("/inject_supplementary_2")
+def inject_supplementary_2():
+    global primary_owner_values
+    global about_work_values
+    global supplementary_2_values
+    global preferred_card_delivery
+    global basic_monthly_income_global
+
+    primary_owner_values[8] = 2 # supplementary_count
+    print(f"Count of Dependents:{primary_owner_values[8]}")
+
+    # Get basicmonthlyincome
+    primary_owner_values.append(preferred_card_delivery)
+    primary_owner_values.append(basic_monthly_income_global)
+
+    worksuccess, work_id_val = insertwork(about_work_values)  # insert and receive workid
+    print(worksuccess)
+
+    primary_owner_values.append(work_id_val)
+
+    pownersuccess, primary_id_val = insertprimaryowner(primary_owner_values)
+    print(pownersuccess)
+
+    supplementary_1_values.append(primary_id_val)
+    supplementary1success, supp_id_val = insertsupplementary(supplementary_1_values, 1)
+    print(supplementary1success)
+
+    supplementary_2_values.append(primary_id_val)
+    supplementary2success, supp_id_val = insertsupplementary(supplementary_2_values, 2)
+    print(supplementary2success)
+
+    return redirect(url_for("confirmation_page"))
+
+@app.route("/confirmation_page")
+def confirmation_page():
+    return render_template("confirmation.html")
 
 if __name__ == "__main__":
     app.run(debug = True)

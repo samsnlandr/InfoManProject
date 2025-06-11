@@ -5,5 +5,5 @@ def dbconnect():
     host = "localhost",
     user = "root",
     password = "pass",
-    database = "bpi_draft_v4"
+    database = "bpi_draft_v6"
 )

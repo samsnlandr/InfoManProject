@@ -23,7 +23,7 @@
                 <p class="section-subtitle">Supplementary</p>
             </div>
 
-            <form id="supplementaryApplicationForm" class="application-form" method="POST" action="/submit_supplementary">
+            <form id="supplementaryApplicationForm" class="application-form" method="POST" action="/submitsupplementary2">
                 <div class="form-group name-group">
                     <div class="input-wrapper required">
                         <input type="text" id="supSurname" name="supSurname" placeholder="Surname" class="input-field" required>
@@ -247,26 +247,6 @@
                     if (callback) callback();
                 };
             }
-
-            supplementaryApplicationForm.addEventListener('submit', function(event) {
-                event.preventDefault();        
-                if (!supBirthdateInput.value) {
-                    showCustomAlertModal('Please fill out the birthdate field.');
-                    return; 
-                }
-                const age = calculateAge(supBirthdateInput.value);
-                if (age < 13) { 
-                    showCustomAlertModal('Supplementary card applicant must be 13 years or older.');
-                    return; 
-                } 
-                
-                if (supRelationshipSelect.value === 'other' && !supOtherRelationshipInput.value.trim()) {
-                    showCustomAlertModal('Please specify your relationship.');
-                    supOtherRelationshipInput.focus(); 
-                    return;
-                }
-                supplementaryApplicationForm.submit();
-            });
         });
     </script>
 </body>
