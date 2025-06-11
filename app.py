@@ -9,7 +9,7 @@ supplementary_2_values = [] #List that contains the infos for supplementary2 in 
 preferred_card_delivery = None #Variable to fetch from different page
 basic_monthly_income_global = None
 
-
+#TODO Unique Values, error code
 
 
 @app.route("/")
@@ -179,6 +179,8 @@ def submitaboutwork():
                              officephonenumber, yearswithpresentemployer, position, officezipcode,
                              officeemailaddress, previousemployer]
 
+        print(f"about work values: {about_work_values}")
+
         action_val = request.form.get("actionbtn")
 
         if action_val == "add supplementary":
@@ -296,7 +298,6 @@ def supplementary_forms_2():
 @app.route("/submitsupplementary2", methods = ['POST', 'GET'])
 def submit_supplementary2():
     if request.method == "POST":
-
         # Get name
         surname = request.form.get("supSurname")
         firstname = request.form.get("supFirstName")
@@ -336,7 +337,7 @@ def submit_supplementary2():
         elif civilstatus == "Widowed":
             civilstatus = "W"
 
-        # Get citizenship #
+        # Get citizenship
         citizenship = request.form.get("supCitizenship")
         if citizenship == "non-filipino":
             citizenship = request.form.get("supOtherCitizenship")
@@ -371,17 +372,18 @@ def submit_supplementary2():
         # Get officephone
         officephone = request.form.get("supOfficePhoneNumber")
 
-        global supplementary_1_values
-        supplementary_1_values = [name, birthday, placeofbirth, sex, civilstatus, citizenship, address, zipcode,
+        global supplementary_2_values
+        supplementary_2_values = [name, birthday, placeofbirth, sex, civilstatus, citizenship, address, zipcode,
                                   homephone,
                                   mobilephone, email, employername, employeraddress, sourceoffunds, naturebusiness,
-                                  officephone,
-                                  relationship]
-
-        return redirect(url_for("inject_supplementary_2"))
+                                  officephone, relationship]
+        # action button
+        action_val = request.form.get("actionbtn")
+        if action_val == "submit":
+            print(f"button value:{action_val}")
+            return redirect(url_for("inject_supplementary_2"))
     else:
-        return redirect(url_for("supplementary_forms_2"))
-
+        return redirect(url_for("supplementary_forms"))
 
 @app.route("/inject_primary_only")
 def primaryinjector():              #Function to insert record, 0 dependents
@@ -439,6 +441,7 @@ def inject_supplementary_1():
 def inject_supplementary_2():
     global primary_owner_values
     global about_work_values
+    global supplementary_1_values
     global supplementary_2_values
     global preferred_card_delivery
     global basic_monthly_income_global
@@ -463,7 +466,8 @@ def inject_supplementary_2():
     print(supplementary1success)
 
     supplementary_2_values.append(primary_id_val)
-    supplementary2success, supp_id_val = insertsupplementary(supplementary_2_values, 2)
+    print(f"Supplement 2 Values: {supplementary_2_values}")
+    supplementary2success, supp_id2_val = insertsupplementary(supplementary_2_values, 2)
     print(supplementary2success)
 
     return redirect(url_for("confirmation_page"))
