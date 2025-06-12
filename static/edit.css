@@ -1,0 +1,260 @@
+body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+html {
+    overflow-y: auto;
+}
+
+.background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('assets/bpi-2017-interaksyon.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: blur(8px);
+    z-index: -1;
+}
+
+.top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    z-index: 10;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.bpi-logo {
+    height: 40px;
+    width: auto;
+    content: url('https://placehold.co/40x40/ffffff/A31F2A?text=BPI');
+}
+
+main {
+    flex-grow: 1;
+    padding-top: 70px;
+    padding-bottom: 100px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.form-container {
+    background-color: #ffffff;
+    border-radius: 25px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    padding: 30px 40px;
+    width: 95%;
+    max-width: 1900px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 1;
+    margin: 20px auto;
+    max-height: calc(100vh - 150px);
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.form-container::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+.form-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+.form-container::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+.form-container::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    text-align: left;
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    font-size: 0.95em;
+}
+
+th, td {
+    padding: 12px 18px;
+    border-bottom: 1px solid #e0e0e0;
+    border-right: 1px solid #e0e0e0;
+}
+
+th:last-child, td:last-child {
+    border-right: none;
+}
+
+th {
+    background-color: #e74c3c;
+    color: white;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+th:first-child { border-top-left-radius: 15px; }
+th:last-child { border-top-right-radius: 15px; }
+tr:last-child td:first-child { border-bottom-left-radius: 15px; }
+tr:last-child td:last-child { border-bottom-right-radius: 15px; border-bottom: none; }
+tr:last-child td { border-bottom: none; }
+
+td {
+    background-color: #fdfdfd;
+    color: #333;
+}
+
+tr:nth-child(even) td {
+    background-color: #f9f9f9;
+}
+
+table tr form {
+    display: contents;
+}
+
+table td input[type="text"] {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 0.9em;
+    box-sizing: border-box;
+    background-color: #fcfcfc;
+    color: #1f2937;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+table td input[type="text"]:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+table td input[type="text"][readonly] {
+    background-color: #e9ecef;
+    cursor: not-allowed;
+    border-color: #ced4da;
+    color: #6c757d;
+}
+
+button[type="submit"] {
+    background-color: #28a745;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+button[type="submit"]:hover {
+    background-color: #218838;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.footer {
+    background-color: #111827;
+    color: #e0e0e0;
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: auto;
+    width: 100%;
+    font-size: 0.9rem;
+    box-sizing: border-box;
+}
+.footer p {
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .form-container {
+        padding: 20px;
+        margin: 15px auto;
+        border-radius: 15px;
+        max-height: calc(100vh - 120px);
+    }
+    th, td {
+        padding: 10px 12px;
+        font-size: 0.85em;
+    }
+    button[type="submit"] {
+        padding: 6px 12px;
+        font-size: 0.8em;
+    }
+    .top-bar {
+        padding: 8px 15px;
+    }
+    .bpi-logo {
+        height: 35px;
+    }
+    main {
+        padding-top: 60px;
+        padding-bottom: 80px;
+    }
+    .footer {
+        padding: 20px 15px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-container {
+        padding: 15px;
+        margin: 10px auto;
+        border-radius: 10px;
+        max-height: calc(100vh - 100px);
+    }
+    th, td {
+        padding: 8px 10px;
+        font-size: 0.8em;
+    }
+    button[type="submit"] {
+        padding: 5px 10px;
+        font-size: 0.75em;
+    }
+    .top-bar {
+        padding: 5px 10px;
+    }
+    .bpi-logo {
+        height: 30px;
+    }
+    main {
+        padding-top: 50px;
+        padding-bottom: 70px;
+    }
+    .footer {
+        padding: 15px 10px;
+        font-size: 0.75rem;
+    }
+}
