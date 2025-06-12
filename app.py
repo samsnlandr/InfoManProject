@@ -505,11 +505,50 @@ def edit():
     elif table_name == "supplementary":
         columns, rows = fetch_line_supplementary(row_id)
         return render_template("edit.html", columns = columns, rows = rows, table_name = table_name)
+
 @app.route("/submit_edit", methods = ["POST", "GET"])
 def submit_edit():
     table_name = request.form.get("table_name")
+    row_id = request.form.get("row_id")
+    c_len = int(request.form.get("column_length"))
+
     if table_name == "primary_card":
-        pass
+        values = []
+        for i in range(c_len):
+            if i == 0 or i == 9 or i == 20 or i == 21:
+                cell_value = int(request.form.get(f"cell_{i}"))
+                values.append(cell_value)
+            else:
+                cell_value = request.form.get(f"cell_{i}")
+                values.append(cell_value)
+
+
+        print(updateprimary(values, row_id))
+
+
+    elif table_name == "work":
+        values = []
+        for i in range(c_len):
+            if i == 0 or i == 6:
+                cell_value = int(request.form.get(f"cell_{i}"))
+                values.append(cell_value)
+            else:
+                cell_value = request.form.get(f"cell_{i}")
+                values.append(cell_value)
+
+        print(updateprimary(values, row_id))
+
+    elif table_name == "supplementary":
+        values = []
+        for i in range(c_len):
+            if i == 0 or i == c_len-1:
+                cell_value = int(request.form.get(f"cell_{i}"))
+                values.append(cell_value)
+            else:
+                cell_value = request.form.get(f"cell_{i}")
+                values.append(cell_value)
+
+        print(updateprimary(values, row_id))
 
 if __name__ == "__main__":
     app.run(debug = True)

@@ -164,3 +164,64 @@ def fetch_line_supplementary(row_id):
     columns = [i[0] for i in mycursor.description]
 
     return columns, rows
+
+def updateprimary(values, row_id):
+    mycursor = database.cursor()
+    command = ("UPDATE primary_card"
+               "SET Card_ID = %s"
+               "Card_Name = %s"
+               "Card_Birthdate = %s"
+               "Card_Place_of_Birth = %s"
+               "Card_Sex = %s"
+               "Card_Display_Name = %s"
+               "Card_Mother_Maiden_Name = %s"
+               "Card_Educational_Attainment = %s"
+               "Card_Civil_Status = %s"
+               "Card_No_of_Dependents = %s"
+               "Card_TIN = %s"
+               "Card_SSS_GSIS %s"
+               "Card_Car_Ownership = %s"
+               "Card_Citizenship = %s"
+               "Card_Mobile_Number = %s"
+               "Card_Home_Phone_Number = %s"
+               "Card_Address = %s"
+               "Card_Zip_Code = %s"
+               "Card_Email = %s"
+               "Card_Preferred_Card_Delivery = %s"
+               "Card_Basic_Monthly_Income = %s"
+               "Work_ID = %s"
+               "WHERE Card_ID = %s")
+
+    values.append(row_id)
+    mycursor.execute(command, values)
+
+    database.commit()
+
+    successalert = f"Update to primary table successful!"
+
+    return successalert
+
+def updatework(values, row_id):
+    mycursor = database.cursor()
+    command = ("UPDATE primary_card"
+               "SET Work_ID = %s"
+               "Work_Employment_Type = %s"
+               "Work_Employer_Name = %s"
+               "Work_Business_Address = %s"
+               "Work_Nature_of_Business =%s"
+               "Work_Business_Phone_Number = %s"
+               "Work_Years_With_Present_Employer = %s"
+               "Work_Position = %s"
+               "Work_Zip_Code = %s"
+               "Work_Email_Address = %s"
+               "Work_Previous_Employer = %s"
+               "WHERE Work_ID = %s")
+
+    values.append(row_id)
+    mycursor.execute(command, values)
+
+    database.commit()
+
+    successalert = f"Update to work table successful!"
+
+    return successalert
