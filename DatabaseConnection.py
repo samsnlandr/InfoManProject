@@ -167,29 +167,28 @@ def fetch_line_supplementary(row_id):
 
 def updateprimary(values, row_id):
     mycursor = database.cursor()
-    command = ("UPDATE primary_card"
-               "SET Card_ID = %s"
-               "Card_Name = %s"
-               "Card_Birthdate = %s"
-               "Card_Place_of_Birth = %s"
-               "Card_Sex = %s"
-               "Card_Display_Name = %s"
-               "Card_Mother_Maiden_Name = %s"
-               "Card_Educational_Attainment = %s"
-               "Card_Civil_Status = %s"
-               "Card_No_of_Dependents = %s"
-               "Card_TIN = %s"
-               "Card_SSS_GSIS %s"
-               "Card_Car_Ownership = %s"
-               "Card_Citizenship = %s"
-               "Card_Mobile_Number = %s"
-               "Card_Home_Phone_Number = %s"
-               "Card_Address = %s"
-               "Card_Zip_Code = %s"
-               "Card_Email = %s"
-               "Card_Preferred_Card_Delivery = %s"
-               "Card_Basic_Monthly_Income = %s"
-               "Work_ID = %s"
+    command = ("UPDATE primary_card SET "
+               "Card_Name = %s,"
+               "Card_Birthdate = %s,"
+               "Card_Place_of_Birth = %s,"
+               "Card_Sex = %s,"
+               "Card_Display_Name = %s,"
+               "Card_Mother_Maiden_Name = %s,"
+               "Card_Educational_Attainment = %s,"
+               "Card_Civil_Status = %s,"
+               "Card_No_of_Dependents = %s,"
+               "Card_TIN = %s,"
+               "Card_SSS_GSIS = %s,"
+               "Card_Car_Ownership = %s,"
+               "Card_Citizenship = %s,"
+               "Card_Mobile_Number = %s,"
+               "Card_Home_Phone_Number = %s,"
+               "Card_Address = %s,"
+               "Card_Zip_Code = %s,"
+               "Card_Email = %s,"
+               "Card_Preferred_Card_Delivery = %s,"
+               "Card_Basic_Monthly_Income = %s,"
+               "Work_ID = %s "
                "WHERE Card_ID = %s")
 
     values.append(row_id)
@@ -203,18 +202,17 @@ def updateprimary(values, row_id):
 
 def updatework(values, row_id):
     mycursor = database.cursor()
-    command = ("UPDATE primary_card"
-               "SET Work_ID = %s"
-               "Work_Employment_Type = %s"
-               "Work_Employer_Name = %s"
-               "Work_Business_Address = %s"
-               "Work_Nature_of_Business =%s"
-               "Work_Business_Phone_Number = %s"
-               "Work_Years_With_Present_Employer = %s"
-               "Work_Position = %s"
-               "Work_Zip_Code = %s"
-               "Work_Email_Address = %s"
-               "Work_Previous_Employer = %s"
+    command = ("UPDATE work SET "
+               "Work_Employment_Type = %s,"
+               "Work_Employer_Name = %s,"
+               "Work_Business_Address = %s,"
+               "Work_Nature_of_Business =%s,"
+               "Work_Business_Phone_Number = %s,"
+               "Work_Years_With_Present_Employer = %s,"
+               "Work_Position = %s,"
+               "Work_Zip_Code = %s,"
+               "Work_Email_Address = %s,"
+               "Work_Previous_Employer = %s "
                "WHERE Work_ID = %s")
 
     values.append(row_id)
@@ -223,5 +221,37 @@ def updatework(values, row_id):
     database.commit()
 
     successalert = f"Update to work table successful!"
+
+    return successalert
+
+def updatesupplementary(values, row_id):
+    mycursor = database.cursor()
+    command = ("UPDATE supplementary SET "
+               "SC_Name = %s,"
+               "SC_Birthday = %s,"
+               "SC_Place_of_Birth = %s,"
+               "SC_Sex = %s,"
+               "SC_Civil_Status =%s,"
+               "SC_Citizenship = %s,"
+               "SC_Address = %s,"
+               "SC_Zip_Code = %s,"
+               "SC_Home_Phone_Number = %s,"
+               "SC_Mobile_Number = %s,"
+               "SC_Email_Address = %s,"
+               "SC_Employer_Business_Name = %s,"
+               "SC_Employer_Business_Address = %s,"
+               "SC_Source_of_Funds = %s,"
+               "SC_Nature_of_Business_Industry = %s,"
+               "SC_Business_Number = %s,"
+               "SC_Relationship_to_Principal_Cardholder = %s,"
+               "Primary_Card_ID = %s "
+               "WHERE Supplementary_Cardholder_No = %s")
+
+    values.append(row_id)
+    mycursor.execute(command, values)
+
+    database.commit()
+
+    successalert = f"Update to supplementary table successful!"
 
     return successalert

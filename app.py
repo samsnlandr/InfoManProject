@@ -515,40 +515,57 @@ def submit_edit():
     if table_name == "primary_card":
         values = []
         for i in range(c_len):
-            if i == 0 or i == 9 or i == 20 or i == 21:
+            if i == 9 or i == 20 or i == 21:
                 cell_value = int(request.form.get(f"cell_{i}"))
+                if cell_value == "None":
+                    cell_value = None
                 values.append(cell_value)
+            elif i == 0:
+                continue
             else:
                 cell_value = request.form.get(f"cell_{i}")
+                if cell_value == "None":
+                    cell_value = None
                 values.append(cell_value)
 
 
         print(updateprimary(values, row_id))
-
 
     elif table_name == "work":
         values = []
         for i in range(c_len):
-            if i == 0 or i == 6:
+            if i == 6:
                 cell_value = int(request.form.get(f"cell_{i}"))
+                if cell_value == "None":
+                    cell_value = None
                 values.append(cell_value)
+            elif i == 0:
+                continue
             else:
                 cell_value = request.form.get(f"cell_{i}")
+                if cell_value == "None":
+                    cell_value = None
                 values.append(cell_value)
 
-        print(updateprimary(values, row_id))
+        print(updatework(values, row_id))
 
     elif table_name == "supplementary":
         values = []
         for i in range(c_len):
-            if i == 0 or i == c_len-1:
+            if i == 0:
+                continue
+            elif i == (c_len-1):
                 cell_value = int(request.form.get(f"cell_{i}"))
+                if cell_value == "None":
+                    cell_value = None
                 values.append(cell_value)
             else:
                 cell_value = request.form.get(f"cell_{i}")
+                if cell_value == "None":
+                    cell_value = None
                 values.append(cell_value)
 
-        print(updateprimary(values, row_id))
+        print(updatesupplementary(values, row_id))
 
 if __name__ == "__main__":
     app.run(debug = True)
