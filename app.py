@@ -584,6 +584,9 @@ def submit_edit():
 def editsuccess():
     return render_template("editsuccess.html")
 
+@app.route("/admin_homepage")
+def adminhomepage():
+    return render_template("adminpage.html")
 
 if __name__ == "__main__":
     app.run(debug = True)
