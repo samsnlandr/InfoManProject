@@ -255,3 +255,51 @@ def updatesupplementary(values, row_id):
     successalert = f"Update to supplementary table successful!"
 
     return successalert
+
+def deletePrimaryandChildren(row_id):
+    mycursor = database.cursor()
+    selectworkcommand = "SELECT Work_ID FROM primary_card WHERE Card_ID = %s;"
+    mycursor.execute(selectworkcommand, (row_id,))
+
+    work_id = mycursor.fetchone()
+
+    deletesupp = "DELETE FROM supplementary Where Primary_Card_ID = %s; "
+    deleteprimary = "DELETE FROM primary_card WHERE Card_ID = %s; "
+    deletework = "DELETE FROM work WHERE Work_ID = %s;"
+    mycursor.execute(deletesupp,(row_id, ))
+    mycursor.execute(deleteprimary, (row_id,))
+    mycursor.execute(deletework, work_id)
+
+    database.commit()
+
+    successalert = f"Deletion from primary_card table, work table, and supplementary table successful"
+
+    return successalert
+
+def deletesupplementary(row_id):
+    mycursor = database.cursor()
+
+    selectcommand = "SELECT Primary_Card_ID FROM supplementary WHERE Supplementary_Cardholder_No = %s "
+    mycursor.execute(selectcommand, (row_id, ))
+    primary_card_id = mycursor.fetchone()[0]
+    print(f"Selected Primary ID: {primary_card_id} ")
+
+    deletecommand = "DELETE FROM supplementary WHERE Supplementary_Cardholder_No = %s; "
+    mycursor.execute(deletecommand, (row_id, ))
+    print(f"ID to be deleted: {row_id}")
+
+    count_no_of_dependents_command = "SELECT COUNT(*) AS NumberOfDependents FROM supplementary WHERE Primary_Card_ID = %s; "
+    mycursor.execute(count_no_of_dependents_command, (primary_card_id, ))
+    count = int(mycursor.fetchone()[0])
+    print(f"Updated Count of Dependents: {count}")
+
+    updatecommand = "UPDATE primary_card SET Card_No_of_Dependents = %s WHERE Card_ID = %s; "
+    mycursor.execute(updatecommand, (count, primary_card_id, ))
+
+    successline = f"Sucessfully Updated Dependent Count and Deleted Supplementary!"
+
+    database.commit()
+
+    return successline
+
+

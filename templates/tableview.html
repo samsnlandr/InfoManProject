@@ -46,7 +46,10 @@
                             <form action="{{url_for('edit')}}" method="POST">
                                 <input type="hidden" name="row_id" value="{{ line[0] }}">
                                 <input type="hidden" name="table_name" value="{{table_name}}">
-                                <button type="submit">Edit</button>
+                                <button type="submit" name="actionbtn" value="edit">Edit</button>
+                                {% if table_name == "primary_card" or table_name == "supplementary" %}
+                                <button type="submit" name="actionbtn" value="delete">Delete</button>
+                                {% endif %}
                             </form>
                         </td>
                     </tr>

@@ -495,16 +495,25 @@ def adminview(table_name):
 def edit():
     table_name = request.form.get("table_name")
     row_id = request.form.get("row_id")
+    action = request.form.get("actionbtn")
 
-    if table_name == "primary_card":
+    if table_name == "primary_card" and action == "edit":
         columns, rows = fetch_line_primary(row_id)
         return render_template("edit.html", columns = columns, rows = rows, table_name = table_name)
-    elif table_name == "work":
+    elif table_name == "work" and action == "edit":
         columns, rows = fetch_line_work(row_id)
         return render_template("edit.html", columns = columns, rows = rows, table_name = table_name)
-    elif table_name == "supplementary":
+    elif table_name == "supplementary" and action == "edit":
         columns, rows = fetch_line_supplementary(row_id)
         return render_template("edit.html", columns = columns, rows = rows, table_name = table_name)
+
+    elif table_name == "primary_card" and action == "delete":
+        print(deletePrimaryandChildren(row_id))
+        return render_template("editsuccess.html")
+
+    elif table_name == "supplementary" and action == "delete":
+        print(deletesupplementary(row_id))
+        return render_template("editsuccess.html")
 
 @app.route("/submit_edit", methods = ["POST", "GET"])
 def submit_edit():
