@@ -427,6 +427,7 @@ def inject_supplementary_1():
 
     primary_owner_values.append(work_id_val)
 
+    print(f"About owner values: {primary_owner_values}")
     pownersuccess, primary_id_val = insertprimaryowner(primary_owner_values)
     print(pownersuccess)
 
