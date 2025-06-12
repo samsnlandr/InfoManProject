@@ -3,31 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Database View</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='table.css') }}">
 </head>
 <body>
-    <table>
-        <tr>
-            {%for header in columns %}
-            <th>
-                {{header}}
-            </th>
-            {% endfor %}
-        </tr>
-        {%for line in rows%}
-        <tr>
-            {%for cell in line%}
-            <td>{{cell}}</td>
-            {% endfor %}
-            <td>
 
-                <form action="{{url_for('edit')}}" method="POST">
-                    <input type="hidden" name="row_id" value="{{ line[0] }}">
-                    <input type="hidden" name="table_name" value="{{table_name}}">
-                    <button type="submit">Edit</button>
-                </form>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
+    <div class="background-overlay"></div>
+
+    <div class="top-bar">
+        <img src="" alt="BPI Logo" class="bpi-logo">
+        <h1 style="color: #333; font-size: 1.5em; font-weight: 600;">Admin Dashboard</h1>
+    </div>
+
+    <main>
+        <div class="form-container">
+            <div class="form-header" style="text-align: left; margin-bottom: 20px;">
+                <h2 style="font-size: 1.8em; color: #1f2937;">{{ table_name | capitalize }} Data</h2>
+                <p style="font-size: 0.9em; color: #6b7280;">View and manage records for {{ table_name }}.</p>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        {%for header in columns %}
+                        <th>
+                            {{header}}
+                        </th>
+                        {% endfor %}
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%for line in rows%}
+                    <tr>
+                        {%for cell in line%}
+                        <td>{{cell}}</td>
+                        {% endfor %}
+                        <td>
+                            <form action="{{url_for('edit')}}" method="POST">
+                                <input type="hidden" name="row_id" value="{{ line[0] }}">
+                                <input type="hidden" name="table_name" value="{{table_name}}">
+                                <button type="submit">Edit</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Your Company Name. All Rights Reserved.</p>
+    </footer>
 </body>
 </html>
