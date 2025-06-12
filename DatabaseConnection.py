@@ -108,3 +108,59 @@ def fetch_primarytable():
 
     return columns, rows
 
+def fetch_work():
+    mycursor = database.cursor()
+    selectall = "SELECT * FROM work"
+
+    mycursor.execute(selectall)
+
+    rows = mycursor.fetchall()
+    columns = [i[0] for i in mycursor.description]
+
+    return columns, rows
+
+def fetch_supplementary():
+    mycursor = database.cursor()
+    selectall = "SELECT * FROM supplementary"
+
+    mycursor.execute(selectall)
+
+    rows = mycursor.fetchall()
+    columns = [i[0] for i in mycursor.description]
+
+    return columns, rows
+
+def fetch_line_primary(row_id):
+    mycursor = database.cursor()
+    selectall = "SELECT * FROM primary_card WHERE Card_ID = %s"
+
+    mycursor.execute(selectall,(row_id,))
+
+    rows = mycursor.fetchall()
+    columns = [i[0] for i in mycursor.description]
+
+    return columns, rows
+
+
+def fetch_line_work(row_id):
+    mycursor = database.cursor()
+    selectall = "SELECT * FROM work WHERE Work_ID = %s"
+
+    mycursor.execute(selectall, (row_id,))
+
+    rows = mycursor.fetchall()
+    columns = [i[0] for i in mycursor.description]
+
+    return columns, rows
+
+
+def fetch_line_supplementary(row_id):
+    mycursor = database.cursor()
+    selectall = "SELECT * FROM supplementary WHERE Supplementary_Cardholder_No = %s"
+
+    mycursor.execute(selectall, (row_id,))
+
+    rows = mycursor.fetchall()
+    columns = [i[0] for i in mycursor.description]
+
+    return columns, rows

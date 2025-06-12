@@ -476,16 +476,40 @@ def inject_supplementary_2():
 def confirmation_page():
     return render_template("confirmation.html")
 
-@app.route("/admin_view")
-def adminview():
+@app.route("/admin_view/<table_name>", methods = ["POST", "GET"])
+def adminview(table_name):
+    if table_name == "primary_card":
+        columns, rows = fetch_primarytable()
+        return render_template("tableview.html", columns = columns, rows = rows, table_name = table_name)
 
-    columns, rows = fetch_primarytable()
-    return render_template("tableview.html", columns = columns, rows = rows)
+    elif table_name == "work":
+        columns, rows = fetch_work()
+        return render_template("tableview.html", columns=columns, rows=rows, table_name = table_name)
+
+    elif table_name == "supplementary":
+        columns, rows = fetch_supplementary()
+        return render_template("tableview.html", columns=columns, rows=rows, table_name = table_name)
+
 
 @app.route("/edit", methods = ["POST","GET"])
 def edit():
-    pass
+    table_name = request.form.get("table_name")
+    row_id = request.form.get("row_id")
 
+    if table_name == "primary_card":
+        columns, rows = fetch_line_primary(row_id)
+        return render_template("edit.html", columns = columns, rows = rows, table_name = table_name)
+    elif table_name == "work":
+        columns, rows = fetch_line_work(row_id)
+        return render_template("edit.html", columns = columns, rows = rows, table_name = table_name)
+    elif table_name == "supplementary":
+        columns, rows = fetch_line_supplementary(row_id)
+        return render_template("edit.html", columns = columns, rows = rows, table_name = table_name)
+@app.route("/submit_edit", methods = ["POST", "GET"])
+def submit_edit():
+    table_name = request.form.get("table_name")
+    if table_name == "primary_card":
+        pass
 
 if __name__ == "__main__":
     app.run(debug = True)

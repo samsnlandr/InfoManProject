@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table>
+        <tr>
+            {%for header in columns %}
+            <th>{{header}}</th>
+            {% endfor %}
+        </tr>
+        {%for line in rows%}
+        <tr>
+            <form action="{{ url_for('submit_edit') }}" method="post">
+                {% for i in range(line | length) %}
+                <td>
+                    <input type="text" name="cell_{{ i }}" value="{{ line[i] }}">
+                </td>
+                {% endfor %}
+                <td>
+                    <input type="hidden" name="row_id" value="{{ line[0] }}">
+                    <input type="hidden" name="table_name" value="{{table_name}}">
+                    <input type="hidden" name="column_length" value="{{line|length}}">
+                    <button type="submit">Save</button>>
+                </td>
+            </form>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

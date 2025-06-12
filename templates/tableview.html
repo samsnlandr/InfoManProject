@@ -19,13 +19,13 @@
             <td>{{cell}}</td>
             {% endfor %}
             <td>
-                <form>
-                   <form action="{{ edit }}" method="post">
+
+                <form action="{{url_for('edit')}}" method="POST">
                     <input type="hidden" name="row_id" value="{{ line[0] }}">
-                    <button type="submit">Edit</button>>
+                    <input type="hidden" name="table_name" value="{{table_name}}">
+                    <button type="submit">Edit</button>
                 </form>
             </td>
-
         </tr>
         {% endfor %}
     </table>
