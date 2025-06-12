@@ -139,7 +139,9 @@ tr:nth-child(even) td {
 
 form {
     margin: 0;
-    display: inline-block;
+    display: flex;
+    gap: 8px;
+    align-items: center;
 }
 button[type="submit"] {
     background-color: #007bff;
@@ -157,6 +159,13 @@ button[type="submit"]:hover {
     transform: translateY(-1px);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
+
+button[type="submit"][name="actionbtn"][value="delete"] {
+    background-color: #e74c3c;
+}
+
+button[type="submit"][name="actionbtn"][value="delete"]:hover {
+    background-color: #c0392b;
 
 .footer {
     background-color: #111827;
