@@ -97,4 +97,14 @@ def insertsupplementary(values, execount):
         database.rollback()
         return f"Error Occurred: {err}"
 
+def fetch_primarytable():
+    mycursor = database.cursor()
+    selectall = "SELECT * FROM primary_card"
+
+    mycursor.execute(selectall)
+
+    rows = mycursor.fetchall()
+    columns = [i[0] for i in mycursor.description]
+
+    return columns, rows
 

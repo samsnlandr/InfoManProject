@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table>
+        <tr>
+            {%for header in columns %}
+            <th>
+                {{header}}
+            </th>
+            {% endfor %}
+        </tr>
+        {%for line in rows%}
+        <tr>
+            {%for cell in line%}
+            <td>{{cell}}</td>
+            {% endfor %}
+            <td>
+                <form>
+                   <form action="{{ edit }}" method="post">
+                    <input type="hidden" name="row_id" value="{{ line[0] }}">
+                    <button type="submit">Edit</button>>
+                </form>
+            </td>
+
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

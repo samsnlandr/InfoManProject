@@ -1,5 +1,5 @@
 from flask import Flask, redirect, url_for, render_template, request
-from DatabaseConnection import insertprimaryowner, insertwork, insertsupplementary
+from DatabaseConnection import *
 
 app = Flask(__name__)
 primary_owner_values = [] #List that contains the infos for primary owner table in SQL
@@ -475,6 +475,17 @@ def inject_supplementary_2():
 @app.route("/confirmation_page")
 def confirmation_page():
     return render_template("confirmation.html")
+
+@app.route("/admin_view")
+def adminview():
+
+    columns, rows = fetch_primarytable()
+    return render_template("tableview.html", columns = columns, rows = rows)
+
+@app.route("/edit", methods = ["POST","GET"])
+def edit():
+    pass
+
 
 if __name__ == "__main__":
     app.run(debug = True)
