@@ -530,6 +530,7 @@ def submit_edit():
 
 
         print(updateprimary(values, row_id))
+        return redirect(url_for("editsuccess"))
 
     elif table_name == "work":
         values = []
@@ -548,6 +549,7 @@ def submit_edit():
                 values.append(cell_value)
 
         print(updatework(values, row_id))
+        return redirect(url_for("editsuccess"))
 
     elif table_name == "supplementary":
         values = []
@@ -566,6 +568,13 @@ def submit_edit():
                 values.append(cell_value)
 
         print(updatesupplementary(values, row_id))
+        return redirect(url_for("editsuccess"))
+
+
+@app.route("/edit_succesful")
+def editsuccess():
+    return render_template("editsuccess.html")
+
 
 if __name__ == "__main__":
     app.run(debug = True)
