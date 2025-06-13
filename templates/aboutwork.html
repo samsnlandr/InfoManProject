@@ -85,7 +85,7 @@
                     <div class="input-wrapper required">
                         <input type="text" id="basicMonthlyIncome" name="basicmonthlyincome" placeholder="Basic Monthly Income" class="input-field" required>
                      <div id="incomeWarning" class="income-warning"></div> {# Added income warning div #}
-                </div>
+                    </div>
 
                 <div class="form-group full-width-group">
                     <div class="input-wrapper required">
@@ -101,6 +101,7 @@
                 <div class="button-wrapper">
                     <button type="submit" name="actionbtn" value="add supplementary" id="addAnotherButton" class="submit-button">Add Supplementary</button>
                     <button type="submit" name="actionbtn" value="submit" class="submit-button">Submit</button>
+                </div>
                 </div>
             </form>
         </div>
@@ -173,40 +174,6 @@
                  customAlertModal.style.display = 'none';
              }
 
-            const basicMonthlyIncomeInput = document.getElementById('basicMonthlyIncome');
-            const incomeWarningDiv = document.getElementById('incomeWarning');
-            const MIN_INCOME = 15000;
-
-            // Function to validate income
-            function checkIncome() {
-                const incomeValue = parseFloat(basicMonthlyIncomeInput.value);
-                if (isNaN(incomeValue) || incomeValue < MIN_INCOME) {
-
-                    incomeWarningDiv.textContent = `Basic Monthly Income must be at least ₱${MIN_INCOME.toLocaleString()}.`;
-                    incomeWarningDiv.style.color = '#e74c3c'; // Set text color to red
-                    basicMonthlyIncomeInput.style.borderColor = '#e74c3c'; // Highlight input border in red
-                    return false; // Indicate validation failure
-                } else {
-
-                    incomeWarningDiv.textContent = '';
-                    basicMonthlyIncomeInput.style.borderColor = '#e0e0e0'; // Revert to default border color
-                    return true; // Indicate validation success
-                }
-            }
-
-            basicMonthlyIncomeInput.addEventListener('input', checkIncome);
-            checkIncome();
-
-            applicationForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-
-                if (!checkIncome()) {
-                    showCustomAlertModal(`Please ensure your Basic Monthly Income is at least ₱${MIN_INCOME.toLocaleString()}.`);
-                    basicMonthlyIncomeInput.focus();
-                    return;
-                }
-                applicationForm.submit();
-            });
         });
     </script>
 </body>
