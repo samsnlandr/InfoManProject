@@ -225,6 +225,57 @@
             flex: 1; 
             min-width: 180px; 
         }
+        .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.3s ease;
+}
+.modal-overlay.show {
+    visibility: visible;
+    opacity: 1;
+}
+.modal-content {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+.modal-overlay.show .modal-content {
+    transform: scale(1);
+}
+.modal-content p {
+    font-size: 1.1em;
+    margin-bottom: 25px;
+    color: #333;
+}
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+.modal-btn {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
 
         .preferred-delivery-label {
             font-size: 14px;
@@ -250,6 +301,16 @@
             flex: 1 1 20%; 
             min-width: 100px; 
         }
+
+        .income-warning {
+    color: #e74c3c;
+    font-size: 0.85em;
+    margin-top: 5px;
+    text-align: left;
+    width: 100%;
+    box-sizing: border-box;
+    padding-left: 5px;
+}
 
         .button-wrapper {
             display: flex;
