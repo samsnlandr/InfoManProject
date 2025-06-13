@@ -45,7 +45,6 @@ def insertprimaryowner(values):
         database.rollback()
         return f"Error Occurred:{err}\n"
 
-
 def insertwork(values):
 
     mycursor = database.cursor()
@@ -141,7 +140,6 @@ def fetch_line_primary(row_id):
 
     return columns, rows
 
-
 def fetch_line_work(row_id):
     mycursor = database.cursor()
     selectall = "SELECT * FROM work WHERE Work_ID = %s"
@@ -152,7 +150,6 @@ def fetch_line_work(row_id):
     columns = [i[0] for i in mycursor.description]
 
     return columns, rows
-
 
 def fetch_line_supplementary(row_id):
     mycursor = database.cursor()
